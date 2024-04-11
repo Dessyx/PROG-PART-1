@@ -12,7 +12,7 @@ namespace PART_1
         {
             // Creating a object of a class.
             PART_1.RecipeApp app = new PART_1.RecipeApp();
-            app.run();  // Calling the method within the RecipeApp class.
+            app.Run();  // Calling the method within the RecipeApp class.
 
         }
     }
