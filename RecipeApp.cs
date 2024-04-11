@@ -99,12 +99,14 @@ namespace PART_1
             // Loops and captures information for each ingredient.
             for(int i = 0; i < ingredients.Length; i++)
             {
-                Console.WriteLine("Ingredient " + ingredients[i+1] + ": ");
-                Console.WriteLine("Ingredient name:");
+                Console.WriteLine("--------INGREDIENT-----------");
+                Console.Write("Ingredient name:");
                 ingredients[i] = Console.ReadLine();
-                Console.WriteLine("Quantity:");
+                Console.Write("Quantity:");
                 quantities[i] = double.Parse(Console.ReadLine());
-                Console.WriteLine("Meansurement (in Units): ");
+                Console.Write("Meansurement (in Units): ");
+                measurement[i] = Console.ReadLine();
+   
             }
        
         }
@@ -121,11 +123,14 @@ namespace PART_1
 
             // Capturing more recipe information.
             for(int i = 0; i < steps; i++) 
-            { 
-                Console.WriteLine("Step " + stepNum[i + 1] + ": ");
+            {
+                int numbering = 1;
+                Console.WriteLine("Step " + numbering + ": ");
 
-                Console.WriteLine("Description: ");
-                stepNum[i] = Console.ReadLine();
+                    Console.WriteLine("Description: ");
+                    stepNum[i] = Console.ReadLine();
+
+                numbering++;
             }
 
             Console.WriteLine("\nYay! Your recipe has been captured.");
@@ -135,14 +140,14 @@ namespace PART_1
         public void DisplayRecipe()
         {
             Console.WriteLine("------------------------------------");
-            Console.WriteLine("\n     RECIPE: " + recipeName);
+            Console.WriteLine("     RECIPE: " + recipeName);
             Console.WriteLine("------------------------------------");
 
             Console.WriteLine("\nIngredients:");
-            for (int i = 0; i < ingredients.Length; i++) {  // Outer loop to display the ingredients.       
-                for (int j = 1; j < ingredients.Length + 1; j++) {  // Inner loop for the numbering / listing. 
-                    Console.WriteLine("\n" + j + quantities[i] + measurement[i] + "of" + ingredients[i]);
-                }             
+            int numbering = 1;
+            for (int i = 0; i < ingredients.Length; i++) {        
+                  Console.WriteLine("\n" + numbering + quantities[i] + " " + measurement[i] + " of " + ingredients[i]);
+                  numbering++;         
             }
 
             Console.WriteLine("\nSteps:");
