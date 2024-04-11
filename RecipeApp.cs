@@ -42,7 +42,7 @@ namespace PART_1
                         recipe.CountingSteps();
                         break;
                     case 2:
-
+                        recipe.DisplayRecipe();
                         break;
                     case 3:
 
@@ -68,9 +68,11 @@ namespace PART_1
 
     internal class RecipeMethods
     {
+        // Declaring variables
+        private String recipeName;
 
-        //    Creating Arrays
-        //      - Class 1
+        //Creating Arrays
+        // - Class 1
         private string[] ingredients;
         private double[] quantities;
         private String[] measurement;
@@ -81,6 +83,9 @@ namespace PART_1
         public void RecipeMeasurement()
         {
             Console.WriteLine("Lets make a recipe!");
+
+            Console.WriteLine("What would you like to name the recipe?");
+            recipeName = Console.ReadLine(); 
 
             //Prompts user to enter the number of ingredients they would like to capture.
             Console.WriteLine("Enter the number of ingredients: ");
@@ -127,7 +132,26 @@ namespace PART_1
 
         }
        
+        public void DisplayRecipe()
+        {
+            Console.WriteLine("------------------------------------");
+            Console.WriteLine("\n     RECIPE: " + recipeName);
+            Console.WriteLine("------------------------------------");
 
+            Console.WriteLine("\nIngredients:");
+            for (int i = 0; i < ingredients.Length; i++) {  // Outer loop to display the ingredients.       
+                for (int j = 1; j < ingredients.Length + 1; j++) {  // Inner loop for the numbering / listing. 
+                    Console.WriteLine("\n" + j + quantities[i] + measurement[i] + "of" + ingredients[i]);
+                }             
+            }
+
+            Console.WriteLine("\nSteps:");
+            for(int i = 0;i < stepNum.Length;i++)
+            {
+                Console.WriteLine( i + 1 + " - " + stepNum[i]); // displays each step as well as its dscription.
+            }
+
+        }
 
     }
 }
