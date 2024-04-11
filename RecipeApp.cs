@@ -58,13 +58,43 @@ namespace PART_1
 
             }
         }
-
-
-
     }
 
     internal class RecipeMethods
     {
 
+        // Creating Arrays
+        private string[] ingredients;
+        private double[] quantities;
+        private String[] measurement;
+
+        public void CreateRecipe()
+        {
+            Console.WriteLine("Lets make a recipe!");
+
+            //Prompts user to enter the number of ingredients they would like to capture.
+            Console.WriteLine("Enter the number of ingredients: ");
+            int ingredientAmount = int.Parse(Console.ReadLine());
+
+            // Declaring the array length to be the amount of ingredients.
+            ingredients = new string[ingredientAmount];
+            quantities = new double[ingredientAmount];
+            measurement = new String[ingredientAmount];
+
+            // Loops and captures information for each ingredient.
+            for(int i = 0; i < ingredients.Length; i++)
+            {
+                Console.WriteLine("Ingredient" + ingredients[i+1]);
+                Console.WriteLine("Ingredient name:");
+                ingredients[i] = Console.ReadLine();
+                Console.WriteLine("Quantity:");
+                quantities[i] = double.Parse(Console.ReadLine());
+                Console.WriteLine("Meansurement (in Units): ");
+            }
+
+
+
+
+        }
     }
 }
