@@ -31,6 +31,7 @@ namespace PART_1
                 Console.WriteLine("4) Reset quantities: ");
                 Console.WriteLine("5) Clear all data: ");
                 Console.WriteLine("6) Exit the program: ");
+                Console.WriteLine("Enter your choice: ");
 
                 //Taking in user input.
                 int choice = int.Parse(Console.ReadLine());
@@ -45,10 +46,10 @@ namespace PART_1
                         recipe.DisplayRecipe();
                         break;
                     case 3:
-
+                        recipe.ScaleRecipe();
                         break;
                     case 4:
-
+                        recipe.QuantitiesReset();
                         break;
                     case 5:
 
@@ -75,6 +76,7 @@ namespace PART_1
         // - Class 1
         private string[] ingredients;
         private double[] quantities;
+        private double[] originalQuantities;
         private String[] measurement;
 
         // - Class 2
@@ -94,6 +96,7 @@ namespace PART_1
             // Declaring the array length to be the amount of ingredients.
             ingredients = new string[ingredientAmount];
             quantities = new double[ingredientAmount];
+            originalQuantities = new double[ingredientAmount];
             measurement = new String[ingredientAmount];
 
             // Loops and captures information for each ingredient.
@@ -104,6 +107,7 @@ namespace PART_1
                 ingredients[i] = Console.ReadLine();
                 Console.Write("Quantity:");
                 quantities[i] = double.Parse(Console.ReadLine());
+                originalQuantities[i] = quantities[i];
                 Console.Write("Meansurement (in Units): ");
                 measurement[i] = Console.ReadLine();
    
@@ -115,17 +119,18 @@ namespace PART_1
         public void CountingSteps() 
         {
             // Prompts the user to enter the amount of steps to take.
-            Console.WriteLine("\n Enter the number of steps: ");
+            Console.WriteLine("\nEnter the number of steps: ");
             int steps = int.Parse(Console.ReadLine());
 
             stepNum = new String[steps];  // Declaring the array length to 
                                           // the number of steps entered.
+            int numbering = 1;
 
             // Capturing more recipe information.
-            for(int i = 0; i < steps; i++) 
+            for (int i = 0; i < steps; i++) 
             {
-                int numbering = 1;
-                Console.WriteLine("Step " + numbering + ": ");
+               
+                Console.WriteLine("Step " + numbering + " - ");
 
                     Console.WriteLine("Description: ");
                     stepNum[i] = Console.ReadLine();
@@ -143,20 +148,46 @@ namespace PART_1
             Console.WriteLine("     RECIPE: " + recipeName);
             Console.WriteLine("------------------------------------");
 
+            
             Console.WriteLine("\nIngredients:");
-            int numbering = 1;
-            for (int i = 0; i < ingredients.Length; i++) {        
-                  Console.WriteLine("\n" + numbering + quantities[i] + " " + measurement[i] + " of " + ingredients[i]);
-                  numbering++;         
+            for (int i = 0; i < ingredients.Length; i++) {   // Displays all ingredients as well as their quantities and measurememts.     
+                  Console.WriteLine("\n" + quantities[i] + " " + measurement[i] + " of " + ingredients[i]);         
             }
 
+            int numbering = 1;
             Console.WriteLine("\nSteps:");
             for(int i = 0;i < stepNum.Length;i++)
             {
-                Console.WriteLine( i + 1 + " - " + stepNum[i]); // displays each step as well as its dscription.
+                Console.WriteLine( numbering + " - " + stepNum[i]); // displays each step as well as its dscription.
             }
 
         }
+
+        public void ScaleRecipe()
+        {
+            Console.WriteLine("Lets scale the recipe! The more the merrier.");
+
+            Console.WriteLine("\nEnter scaling factor (0.5, 2 or 3)");
+            double factor = double.Parse(Console.ReadLine());
+            
+            for(int i = 0; i < quantities.Length; i++)
+            {
+                quantities[i] = originalQuantities[i] * factor;  // Multiplying the original values by the factor
+            }                                                    // and assigning the values to quantities.
+
+            Console.WriteLine("All done!");
+        }
+
+
+        public void QuantitiesReset()
+        {
+            for(int i = 0; i < quantities.Length; i++)
+            {
+                quantities[i] = originalQuantities[i];  // Resests the mutiplied values to the orgininal values.
+            }
+        }
+
+
 
     }
 }
