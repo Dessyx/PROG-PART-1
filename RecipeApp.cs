@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+
+//Deslynn Fenyes
+//STD: ST10251981
+//Module: PROG6221
 
 namespace PART_1
 {
@@ -33,7 +38,8 @@ namespace PART_1
                 switch (choice)
                 {
                     case 1:
-
+                        recipe.RecipeMeasurement();
+                        recipe.CountingSteps();
                         break;
                     case 2:
 
@@ -63,12 +69,16 @@ namespace PART_1
     internal class RecipeMethods
     {
 
-        // Creating Arrays
+        //    Creating Arrays
+        //      - Class 1
         private string[] ingredients;
         private double[] quantities;
         private String[] measurement;
 
-        public void CreateRecipe()
+        // - Class 2
+        private String[] stepNum;
+
+        public void RecipeMeasurement()
         {
             Console.WriteLine("Lets make a recipe!");
 
@@ -84,17 +94,40 @@ namespace PART_1
             // Loops and captures information for each ingredient.
             for(int i = 0; i < ingredients.Length; i++)
             {
-                Console.WriteLine("Ingredient" + ingredients[i+1]);
+                Console.WriteLine("Ingredient " + ingredients[i+1] + ": ");
                 Console.WriteLine("Ingredient name:");
                 ingredients[i] = Console.ReadLine();
                 Console.WriteLine("Quantity:");
                 quantities[i] = double.Parse(Console.ReadLine());
                 Console.WriteLine("Meansurement (in Units): ");
             }
+       
+        }
 
 
+        public void CountingSteps() 
+        {
+            // Prompts the user to enter the amount of steps to take.
+            Console.WriteLine("\n Enter the number of steps: ");
+            int steps = int.Parse(Console.ReadLine());
 
+            stepNum = new String[steps];  // Declaring the array length to 
+                                          // the number of steps entered.
+
+            // Capturing more recipe information.
+            for(int i = 0; i < steps; i++) 
+            { 
+                Console.WriteLine("Step " + stepNum[i + 1] + ": ");
+
+                Console.WriteLine("Description: ");
+                stepNum[i] = Console.ReadLine();
+            }
+
+            Console.WriteLine("\nYay! Your recipe has been captured.");
 
         }
+       
+
+
     }
 }
