@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -52,10 +53,10 @@ namespace PART_1
                         recipe.QuantitiesReset();
                         break;
                     case 5:
-
+                        recipe.Clear();
                         break;
                     case 6:
-
+                        recipe.Exit();
                         break;
                     default:
                         Console.WriteLine("Invalid choice, please pick a option between 1 and 6");
@@ -148,18 +149,28 @@ namespace PART_1
             Console.WriteLine("     RECIPE: " + recipeName);
             Console.WriteLine("------------------------------------");
 
-            
-            Console.WriteLine("\nIngredients:");
-            for (int i = 0; i < ingredients.Length; i++) {   // Displays all ingredients as well as their quantities and measurememts.     
-                  Console.WriteLine("\n" + quantities[i] + " " + measurement[i] + " of " + ingredients[i]);         
-            }
+            //If the fields are empty, displays the error message and prompts user to proceed to step 1.
+            if (quantities != null && measurement.Length > 0 && ingredients.Length > 0) {  // Error handling
 
-            int numbering = 1;
-            Console.WriteLine("\nSteps:");
-            for(int i = 0;i < stepNum.Length;i++)
+                Console.WriteLine("\nIngredients:");
+                for (int i = 0; i < ingredients.Length; i++)
+                {   // Displays all ingredients as well as their quantities and measurememts.     
+                    Console.WriteLine("*  " + quantities[i] + " " + measurement[i] + " of " + ingredients[i]);
+                }
+
+                int numbering = 1; // Numbering for displaying the steps
+                Console.WriteLine("\nSteps:");
+                for (int i = 0; i < stepNum.Length; i++)
+                {
+                    Console.WriteLine(numbering + " - " + stepNum[i]); // displays each step as well as its dscription.
+                    numbering++;
+                }
+
+            } else
             {
-                Console.WriteLine( numbering + " - " + stepNum[i]); // displays each step as well as its dscription.
+                Console.WriteLine("Fields are empty. Please proceed to step 1");
             }
+           
 
         }
 
@@ -167,15 +178,20 @@ namespace PART_1
         {
             Console.WriteLine("Lets scale the recipe! The more the merrier.");
 
-            Console.WriteLine("\nEnter scaling factor (0.5, 2 or 3)");
-            double factor = double.Parse(Console.ReadLine());
+            Console.Write("\nEnter scaling factor (0.5, 2 or 3)");
+            double factor = double.Parse(Console.ReadLine()); // User enters the factor theyd like to scale.
             
             for(int i = 0; i < quantities.Length; i++)
             {
                 quantities[i] = originalQuantities[i] * factor;  // Multiplying the original values by the factor
             }                                                    // and assigning the values to quantities.
 
-            Console.WriteLine("All done!");
+            for (int i = 0; i < quantities.Length; i++)
+            {
+                Console.WriteLine("*  " + quantities[i] + " " + measurement[i] + " of " + ingredients[i]);
+            }
+
+            Console.WriteLine("\nAll done!");
         }
 
 
@@ -185,8 +201,33 @@ namespace PART_1
             {
                 quantities[i] = originalQuantities[i];  // Resests the mutiplied values to the orgininal values.
             }
+
+            Console.WriteLine("All done!");
         }
 
+        public void Clear()
+        {
+            ingredients = null;
+            quantities = null;       // Set all variables to null (empty)
+            measurement = null;
+            stepNum = null;
+            recipeName = null;
+
+            Console.WriteLine("Oops! Your data has been cleared.");
+        }
+
+
+        public void Exit()
+        {
+            Console.WriteLine("Awwww :( Sad to see you go.");  
+            Console.WriteLine("Are you sure you would like to exit? (Yes or No)"); // Confirming if the user would like to exit.
+            String exiting = Console.ReadLine();
+
+            if(exiting.Equals("Yes")) { 
+               
+                Environment.Exit(0);  // Exits application
+            }
+        }
 
 
     }
