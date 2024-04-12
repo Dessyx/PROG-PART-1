@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 //Deslynn Fenyes
 //STD: ST10251981
 //Module: PROG6221
+//PROG POE PART 1
 
 namespace PART_1
 {
@@ -120,13 +121,42 @@ namespace PART_1
             {
                 Console.WriteLine("--------INGREDIENT-----------");
                 Console.Write("Ingredient name:");
-                ingredients[i] = Console.ReadLine();
+                string ingredient = Console.ReadLine();
+
+                while(string.IsNullOrWhiteSpace(ingredient)) {
+                    Console.WriteLine("*Please enter a recipe name.*");
+                    Console.Write("Ingredient name:");
+                    ingredient = Console.ReadLine();
+                }
+                ingredients[i] = ingredient;
+
+                //--------
+
                 Console.Write("Quantity:");
-                quantities[i] = double.Parse(Console.ReadLine());
+                string quantityD = Console.ReadLine();
+                while (string.IsNullOrWhiteSpace(quantityD))
+                {
+                    Console.WriteLine("*Please enter a quantity.*");
+                    Console.Write("Ingredient name:");
+                    quantityD = Console.ReadLine();
+                }
+                quantities[i] = double.Parse(quantityD);
+
                 originalQuantities[i] = quantities[i];
-                Console.Write("Meansurement (in Units): ");
-                measurement[i] = Console.ReadLine();
-   
+
+                //--------
+
+
+               Console.Write("Meansurement (in Units): ");
+               string measurementInput = Console.ReadLine();
+                while (string.IsNullOrWhiteSpace(measurementInput))
+                {
+                    Console.WriteLine("*Please enter a measurement*");
+                    Console.Write("Ingredient name:");
+                    measurementInput = Console.ReadLine();
+                }
+                measurement[i] = measurementInput;
+
             }
        
         }
