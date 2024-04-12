@@ -12,17 +12,25 @@ using System.Threading.Tasks;
 
 namespace PART_1
 {
+
+//-------------------------------------------------------------------------------------------------------
+//                                               RECIPE APP CLASS
     internal class RecipeApp
     {
         RecipeMethods recipe = new RecipeMethods();
 
+        //------------------------------------------------------------------
+        // Method called Run which:
+        // - welcomes user
+        // - provides user with options
+        // - performs actions based on user input
         public void Run()
         {
             Console.WriteLine("Welcome to Sanele's Recipe App!");
 
             while (true)
             {
-                //Prompt the user to choose what action theyd like to take.
+                //Prompt the user to choose what action they'd like to take.
                 Console.WriteLine("\nPick a option: ");
 
                 // Providing user with options:
@@ -37,6 +45,7 @@ namespace PART_1
                 //Taking in user input.
                 int choice = int.Parse(Console.ReadLine());
 
+                // Performing an action based on the user input.
                 switch (choice)
                 {
                     case 1:
@@ -68,21 +77,27 @@ namespace PART_1
         }
     }
 
+//                                                 END OF RECIPE APP CLASS
+//-----------------------------------------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------------------------------------
+//                                                   RECIPE METHODS CLASS
     internal class RecipeMethods
     {
         // Declaring variables
         private String recipeName;
 
         //Creating Arrays
-        // - Class 1
         private string[] ingredients;
         private double[] quantities;
         private double[] originalQuantities;
         private String[] measurement;
-
-        // - Class 2
         private String[] stepNum;
 
+        //------------------------------------------------------------------------
+        // Method called RecipeMeasurement which captures and stores user input 
+        // about the recipe such as ingredients, quantities and measurement.
         public void RecipeMeasurement()
         {
             Console.WriteLine("Lets make a recipe!");
@@ -116,7 +131,9 @@ namespace PART_1
        
         }
 
-
+        //----------------------------------------------------------------------
+        // Method called CountingSteps which asks the user how many steps theyd
+        // like to add and captures a description for each.
         public void CountingSteps() 
         {
             // Prompts the user to enter the amount of steps to take.
@@ -143,6 +160,8 @@ namespace PART_1
 
         }
        
+        //----------------------------------------------------------------------
+        // Method called DisplayRecipe which displays the recipe information.
         public void DisplayRecipe()
         {
             Console.WriteLine("------------------------------------");
@@ -171,9 +190,11 @@ namespace PART_1
                 Console.WriteLine("Fields are empty. Please proceed to step 1");
             }
            
-
         }
 
+        //----------------------------------------------------------------------------
+        // Method called ScaleRecipe which scales the recipe up or down depending
+        // on the users choice.
         public void ScaleRecipe()
         {
             Console.WriteLine("Lets scale the recipe! The more the merrier.");
@@ -194,7 +215,9 @@ namespace PART_1
             Console.WriteLine("\nAll done!");
         }
 
-
+        //-----------------------------------------------------------------------------
+        // Method called QuantitiesReset which resets the quantities back to the original
+        // scale before scaling up or down.
         public void QuantitiesReset()
         {
             for(int i = 0; i < quantities.Length; i++)
@@ -205,6 +228,8 @@ namespace PART_1
             Console.WriteLine("All done!");
         }
 
+        //-------------------------------------------------------------------------------
+        // Method called Clear which clears all the recipe input.
         public void Clear()
         {
             ingredients = null;
@@ -216,7 +241,8 @@ namespace PART_1
             Console.WriteLine("Oops! Your data has been cleared.");
         }
 
-
+        //--------------------------------------------------------------------------------
+        // 
         public void Exit()
         {
             Console.WriteLine("Awwww :( Sad to see you go.");  
@@ -231,4 +257,8 @@ namespace PART_1
 
 
     }
-}
+//-----------------------------------------------------------------------------------------------------------
+//                              END OF RECIPE METHODS CLASS
+
+
+} //-------------------------------<<< End Of File >>>-------------------------------------------------------
