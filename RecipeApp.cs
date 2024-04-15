@@ -101,20 +101,33 @@ namespace PART_1
         // about the recipe such as ingredients, quantities and measurement.
         public void RecipeMeasurement()
         {
-            Console.WriteLine("Lets make a recipe!");
+            Console.ForegroundColor = ConsoleColor.Red;
 
-            Console.WriteLine("What would you like to name the recipe?");
-            recipeName = Console.ReadLine(); 
+            Console.WriteLine("Lets make a recipe!");
+    
+                Console.WriteLine("What would you like to name the recipe?");
+                recipeName = Console.ReadLine();
 
             //Prompts user to enter the number of ingredients they would like to capture.
-            Console.WriteLine("Enter the number of ingredients: ");
-            int ingredientAmount = int.Parse(Console.ReadLine());
+            try // Try catch - error handling
+            {
+                Console.WriteLine("Enter the number of ingredients: ");
+                int ingredientAmount = int.Parse(Console.ReadLine());
 
-            // Declaring the array length to be the amount of ingredients.
-            ingredients = new string[ingredientAmount];
-            quantities = new double[ingredientAmount];
-            originalQuantities = new double[ingredientAmount];
-            measurement = new String[ingredientAmount];
+                // Declaring the array length to be the amount of ingredients.
+                ingredients = new string[ingredientAmount];
+                quantities = new double[ingredientAmount];
+                originalQuantities = new double[ingredientAmount];
+                measurement = new String[ingredientAmount];
+
+            } catch (FormatException) {
+                Console.WriteLine("The input entered in invalid, please enter a number",Console.ForegroundColor);
+            }
+              catch (ArgumentNullException) {
+                Console.WriteLine("Field is empty, Please enter the number of ingredients", Console.ForegroundColor);
+            }
+
+
 
             // Loops and captures information for each ingredient.
             for(int i = 0; i < ingredients.Length; i++)
@@ -123,8 +136,10 @@ namespace PART_1
                 Console.Write("Ingredient name:");
                 string ingredient = Console.ReadLine();
 
+                Console.ForegroundColor = ConsoleColor.Red;
+
                 while(string.IsNullOrWhiteSpace(ingredient)) {
-                    Console.WriteLine("*Please enter a recipe name.*");
+                    Console.WriteLine("*Please enter a recipe name.*", Console.ForegroundColor);
                     Console.Write("Ingredient name:");
                     ingredient = Console.ReadLine();
                 }
@@ -291,4 +306,4 @@ namespace PART_1
 //                              END OF RECIPE METHODS CLASS
 
 
-} //-------------------------------<<< End Of File >>>-------------------------------------------------------
+} //--------------------------------------<<< End Of File >>>-------------------------------------------------------
