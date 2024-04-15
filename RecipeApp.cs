@@ -187,7 +187,8 @@ namespace PART_1
                     string quantityD = Console.ReadLine();
                     while (string.IsNullOrWhiteSpace(quantityD))
                     {
-                        Console.WriteLine("*Please enter a quantity.*", Console.ForegroundColor);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("*Please enter a quantity.*", Console.ForegroundColor);
                         Console.Write("Ingredient quantity:");
                         quantityD = Console.ReadLine();
                     }
@@ -202,7 +203,8 @@ namespace PART_1
                     string measurementInput = Console.ReadLine();
                     while (string.IsNullOrWhiteSpace(measurementInput))
                     {
-                        Console.WriteLine("*Please enter a measurement*", Console.ForegroundColor);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("*Please enter a measurement*", Console.ForegroundColor);
                         Console.Write("Ingredient name:");
                         measurementInput = Console.ReadLine();
                     }
@@ -217,6 +219,8 @@ namespace PART_1
         // like to add and captures a description for each.
         public void CountingSteps() 
         {
+            Console.ResetColor();
+
             // Prompts the user to enter the amount of steps to take.
             Console.WriteLine("\nEnter the number of steps: ");
             int steps = int.Parse(Console.ReadLine());
@@ -225,7 +229,7 @@ namespace PART_1
                                           // the number of steps entered.
             int numbering = 1;
 
-            // Capturing more recipe information.
+            // Displaying recipe information.
             for (int i = 0; i < steps; i++) 
             {
                
@@ -246,8 +250,11 @@ namespace PART_1
         public void DisplayRecipe()
         {
             Console.WriteLine("------------------------------------");
-            Console.WriteLine("     RECIPE: " + recipeName);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("        RECIPE: " + recipeName);
+            Console.ResetColor();
             Console.WriteLine("------------------------------------");
+           
 
             //If the fields are empty, displays the error message and prompts user to proceed to step 1.
             if (quantities != null && measurement.Length > 0 && ingredients.Length > 0) {  // Error handling
