@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,16 +102,25 @@ namespace PART_1
         // about the recipe such as ingredients, quantities and measurement.
         public void RecipeMeasurement()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
 
             Console.WriteLine("Lets make a recipe!");
-    
+
+            // Prompts user to enter the name they'd like to give the recipe.   
+            Console.WriteLine("What would you like to name the recipe?");
+            recipeName = Console.ReadLine();
+                
+            while(String.IsNullOrWhiteSpace(recipeName))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Field is empty! Please enter an input", Console.ForegroundColor);
+                Console.ResetColor();
                 Console.WriteLine("What would you like to name the recipe?");
                 recipeName = Console.ReadLine();
+            }
+                
+         
 
-            //Prompts user to enter the number of ingredients they would like to capture.
-            try // Try catch - error handling
-            {
+            // Prompts user to enter the number of ingredients they would like to capture.
                 Console.WriteLine("Enter the number of ingredients: ");
                 int ingredientAmount = int.Parse(Console.ReadLine());
 
@@ -120,12 +130,17 @@ namespace PART_1
                 originalQuantities = new double[ingredientAmount];
                 measurement = new String[ingredientAmount];
 
-            } catch (FormatException) {
-                Console.WriteLine("The input entered in invalid, please enter a number",Console.ForegroundColor);
-            }
-              catch (ArgumentNullException) {
+                
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("The input entered in invalid, please enter a number", Console.ForegroundColor);
+                Console.ResetColor();
+
+                
+
+
+            Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Field is empty, Please enter the number of ingredients", Console.ForegroundColor);
-            }
+            
 
 
 
