@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.Remoting.Lifetime;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -89,6 +90,7 @@ namespace PART_1
     {
         // Declaring variables
         private String recipeName;
+        private int ingredientAmount;
 
         //Creating Arrays
         private string[] ingredients;
@@ -117,79 +119,98 @@ namespace PART_1
                 Console.WriteLine("What would you like to name the recipe?");
                 recipeName = Console.ReadLine();
             }
-                
-         
 
-            // Prompts user to enter the number of ingredients they would like to capture.
+            //          -----------------------------------------------------
+
+            // Prompts user to enter the number of ingredients they would like to capture.               
+            while (true)
+            {
                 Console.WriteLine("Enter the number of ingredients: ");
-                int ingredientAmount = int.Parse(Console.ReadLine());
 
+                try
+                {
+                    string input = Console.ReadLine();
+                    ingredientAmount = int.Parse(input);
+
+                    // Checks if the input is a integer + the input id not empty.
+                    if (ingredientAmount <= 0)
+                    {
+                        throw new ArgumentOutOfRangeException();
+
+                    }
+                    break;
+
+                }
+                catch (FormatException)
+                {
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid input. Please enter a number.", Console.ForegroundColor);
+                    Console.ResetColor();
+                }
+
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Field is empty. Please enter the number of ingredients.", Console.ForegroundColor);
+                    Console.ResetColor();
+                }
+            }
                 // Declaring the array length to be the amount of ingredients.
                 ingredients = new string[ingredientAmount];
                 quantities = new double[ingredientAmount];
                 originalQuantities = new double[ingredientAmount];
                 measurement = new String[ingredientAmount];
 
-                
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("The input entered in invalid, please enter a number", Console.ForegroundColor);
-                Console.ResetColor();
-
-                
-
-
-            Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Field is empty, Please enter the number of ingredients", Console.ForegroundColor);
-            
-
-
+            //          -----------------------------------------------------
 
             // Loops and captures information for each ingredient.
-            for(int i = 0; i < ingredients.Length; i++)
-            {
-                Console.WriteLine("--------INGREDIENT-----------");
-                Console.Write("Ingredient name:");
-                string ingredient = Console.ReadLine();
-
-                Console.ForegroundColor = ConsoleColor.Red;
-
-                while(string.IsNullOrWhiteSpace(ingredient)) {
-                    Console.WriteLine("*Please enter a recipe name.*", Console.ForegroundColor);
+            for (int i = 0; i < ingredients.Length; i++)
+                {
+                    Console.WriteLine("--------INGREDIENT-----------");
                     Console.Write("Ingredient name:");
-                    ingredient = Console.ReadLine();
-                }
-                ingredients[i] = ingredient;
+                    string ingredient = Console.ReadLine();
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+                    while (string.IsNullOrWhiteSpace(ingredient))
+                    {
+                        Console.WriteLine("*Please enter a recipe name.*", Console.ForegroundColor);
+                        Console.Write("Ingredient name:");
+                        ingredient = Console.ReadLine();
+                    }
+                    ingredients[i] = ingredient;
+
+                //--------
+                     Console.ResetColor();
+                     Console.Write("Quantity:");
+                    string quantityD = Console.ReadLine();
+                    while (string.IsNullOrWhiteSpace(quantityD))
+                    {
+                        Console.WriteLine("*Please enter a quantity.*", Console.ForegroundColor);
+                        Console.Write("Ingredient quantity:");
+                        quantityD = Console.ReadLine();
+                    }
+                    quantities[i] = double.Parse(quantityD);
+
+                    originalQuantities[i] = quantities[i];
 
                 //--------
 
-                Console.Write("Quantity:");
-                string quantityD = Console.ReadLine();
-                while (string.IsNullOrWhiteSpace(quantityD))
-                {
-                    Console.WriteLine("*Please enter a quantity.*");
-                    Console.Write("Ingredient name:");
-                    quantityD = Console.ReadLine();
+                     Console.ResetColor();
+                     Console.Write("Meansurement (in Units): ");
+                    string measurementInput = Console.ReadLine();
+                    while (string.IsNullOrWhiteSpace(measurementInput))
+                    {
+                        Console.WriteLine("*Please enter a measurement*", Console.ForegroundColor);
+                        Console.Write("Ingredient name:");
+                        measurementInput = Console.ReadLine();
+                    }
+                    measurement[i] = measurementInput;
+
                 }
-                quantities[i] = double.Parse(quantityD);
-
-                originalQuantities[i] = quantities[i];
-
-                //--------
-
-
-               Console.Write("Meansurement (in Units): ");
-               string measurementInput = Console.ReadLine();
-                while (string.IsNullOrWhiteSpace(measurementInput))
-                {
-                    Console.WriteLine("*Please enter a measurement*");
-                    Console.Write("Ingredient name:");
-                    measurementInput = Console.ReadLine();
-                }
-                measurement[i] = measurementInput;
-
-            }
-       
-        }
+            
+        } 
 
         //----------------------------------------------------------------------
         // Method called CountingSteps which asks the user how many steps theyd
