@@ -30,52 +30,59 @@ namespace PART_1
         public void Run()
         {
             Console.WriteLine("Welcome to Sanele's Recipe App!");
+            int choice;
 
             while (true)
             {
                 //Prompt the user to choose what action they'd like to take.
                 Console.WriteLine("\nPick a option: ");
-
-                // Providing user with options:
-                Console.WriteLine("1) Enter details of the recipe");
-                Console.WriteLine("2) Display your recipe: ");
-                Console.WriteLine("3) Scale your recipe: ");
-                Console.WriteLine("4) Reset quantities: ");
-                Console.WriteLine("5) Clear all data: ");
-                Console.WriteLine("6) Exit the program: ");
-                Console.WriteLine("Enter your choice: ");
-
-                //Taking in user input.
-                int choice = int.Parse(Console.ReadLine());
-
-                // Performing an action based on the user input.
-                switch (choice)
+                try
                 {
-                    case 1:
-                        recipe.RecipeMeasurement();
-                        recipe.CountingSteps();
-                        break;
-                    case 2:
-                        recipe.DisplayRecipe();
-                        break;
-                    case 3:
-                        recipe.ScaleRecipe();
-                        break;
-                    case 4:
-                        recipe.QuantitiesReset();
-                        break;
-                    case 5:
-                        recipe.Clear();
-                        break;
-                    case 6:
-                        recipe.Exit();
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice, please pick a option between 1 and 6");
-                        break;
+                    // Providing user with options:
+                    Console.WriteLine("1) Enter details of the recipe");
+                    Console.WriteLine("2) Display your recipe: ");
+                    Console.WriteLine("3) Scale your recipe: ");
+                    Console.WriteLine("4) Reset quantities: ");
+                    Console.WriteLine("5) Clear all data: ");
+                    Console.WriteLine("6) Exit the program: ");
+                    Console.WriteLine("Enter your choice: ");
 
+                    //Taking in user input.
+                    choice = int.Parse(Console.ReadLine());
+
+                    // Performing an action based on the user input.
+                    switch (choice)
+                    {
+                        case 1:
+                            recipe.RecipeMeasurement();
+                            recipe.CountingSteps();
+                            break;
+                        case 2:
+                            recipe.DisplayRecipe();
+                            break;
+                        case 3:
+                            recipe.ScaleRecipe();
+                            break;
+                        case 4:
+                            recipe.QuantitiesReset();
+                            break;
+                        case 5:
+                            recipe.Clear();
+                            break;
+                        case 6:
+                            recipe.Exit();
+                            break;
+                        default:
+                            Console.WriteLine("Invalid choice, please pick a option between 1 and 6");
+                            continue;
+
+                    }
+                   
+                } catch (FormatException) {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid input. Please enter a number");
+                    Console.ResetColor();   
                 }
-
             }
         }
     }
@@ -91,13 +98,15 @@ namespace PART_1
         // Declaring variables
         private String recipeName;
         private int ingredientAmount;
+        private int steps;
+        private double quantityD;
 
         //Creating Arrays
         private string[] ingredients;
         private double[] quantities;
         private double[] originalQuantities;
         private String[] measurement;
-        private String[] stepNum;
+        string[] stepDescriptions;
 
         //------------------------------------------------------------------------
         // Method called RecipeMeasurement which captures and stores user input 
@@ -182,31 +191,59 @@ namespace PART_1
                     ingredients[i] = ingredient;
 
                 //--------
-                     Console.ResetColor();
-                     Console.Write("Quantity:");
-                    string quantityD = Console.ReadLine();
-                    while (string.IsNullOrWhiteSpace(quantityD))
+
+
+                while (true)
+                {
+                    Console.ResetColor();
+                    Console.Write("Quantity:");
+
+                    try
                     {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("*Please enter a quantity.*", Console.ForegroundColor);
-                        Console.Write("Ingredient quantity:");
-                        quantityD = Console.ReadLine();
+                        string input = Console.ReadLine();
+                        quantityD = double.Parse(input);
+
+                        // Checks if the input is a integer + the input id not empty.
+                        if (quantityD <= 0)
+                        {
+                            throw new ArgumentOutOfRangeException();
+
+                        }
+                        break;
+
                     }
-                    quantities[i] = double.Parse(quantityD);
+                    catch (FormatException)
+                    {
+
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("*Please enter a number.*", Console.ForegroundColor);
+                        Console.ResetColor();
+                    }
+
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("*Field is empty. Please enter a quantity.*", Console.ForegroundColor);
+                        Console.ResetColor();
+                    }
+                    quantities[i] = quantityD;
 
                     originalQuantities[i] = quantities[i];
+                }
+                  
 
                 //--------
 
-                     Console.ResetColor();
-                     Console.Write("Meansurement (in Units): ");
+                    
+                    Console.Write("Meansurement (teaspoon, tablespoon or cup): ");
                     string measurementInput = Console.ReadLine();
                     while (string.IsNullOrWhiteSpace(measurementInput))
                     {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("*Please enter a measurement*", Console.ForegroundColor);
-                        Console.Write("Ingredient name:");
-                        measurementInput = Console.ReadLine();
+                    Console.ResetColor();
+                    Console.Write("Ingredient name:");
+                    measurementInput = Console.ReadLine();
                     }
                     measurement[i] = measurementInput;
 
@@ -215,43 +252,85 @@ namespace PART_1
         } 
 
         //----------------------------------------------------------------------
-        // Method called CountingSteps which asks the user how many steps theyd
+        // Method called CountingSteps which asks the user how many steps they'd
         // like to add and captures a description for each.
         public void CountingSteps() 
         {
-            Console.ResetColor();
+            Console.ResetColor(); 
+            
+            string description;
 
-            // Prompts the user to enter the amount of steps to take.
-            Console.WriteLine("\nEnter the number of steps: ");
-            int steps = int.Parse(Console.ReadLine());
-
-            stepNum = new String[steps];  // Declaring the array length to 
-                                          // the number of steps entered.
-            int numbering = 1;
-
-            // Displaying recipe information.
-            for (int i = 0; i < steps; i++) 
+            while (true)
             {
-               
-                Console.WriteLine("Step " + numbering + " - ");
+              
+                try  // --------- error handling step input -----------------
+                {
+                    // Prompts the user to enter the amount of steps to take.
+                    Console.WriteLine("\nEnter the number of steps: ");
+                    string input = Console.ReadLine();
+                    steps = int.Parse(input);
+                    stepDescriptions = new string[steps];
 
-                    Console.WriteLine("Description: ");
-                    stepNum[i] = Console.ReadLine();
+                    // Checks if the input is a integer and not empty.
+                    if (steps <= 0)
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
 
-                numbering++;
+                   
+                    break; 
+                }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid input. Please enter a number.", Console.ForegroundColor);
+                    Console.ResetColor();
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Field is empty. Please enter the number of steps", Console.ForegroundColor);
+                    Console.ResetColor();
+                }
+
             }
 
-            Console.WriteLine("\nYay! Your recipe has been captured.");
+
+            int numbering = 1;
+            for (int i = 0; i < steps; i++)
+            {
+                
+                Console.WriteLine("Step " + numbering + " - ");
+                numbering++;
+
+                // Prompt user for step description
+                Console.Write("Description: ");
+                description = Console.ReadLine().Trim();
+                
+                //-------- error handling description input -----------
+                while (String.IsNullOrWhiteSpace(description))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Field is empty. Please enter a description.", Console.ForegroundColor);
+                    Console.ResetColor();
+                    Console.Write("Description: ");
+                    description = Console.ReadLine().Trim();
+                   
+                }
+
+                stepDescriptions[i] = description;
+               
+            }
 
         }
-       
+
         //----------------------------------------------------------------------
         // Method called DisplayRecipe which displays the recipe information.
         public void DisplayRecipe()
         {
             Console.WriteLine("------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("        RECIPE: " + recipeName);
+            Console.WriteLine("           RECIPE: " + recipeName);
             Console.ResetColor();
             Console.WriteLine("------------------------------------");
            
@@ -267,9 +346,9 @@ namespace PART_1
 
                 int numbering = 1; // Numbering for displaying the steps
                 Console.WriteLine("\nSteps:");
-                for (int i = 0; i < stepNum.Length; i++)
+                for (int i = 0; i < stepDescriptions.Length; i++)
                 {
-                    Console.WriteLine(numbering + " - " + stepNum[i]); // displays each step as well as its dscription.
+                    Console.WriteLine(numbering + " - " + stepDescriptions[i]); // displays each step as well as its dscription.
                     numbering++;
                 }
 
@@ -287,13 +366,25 @@ namespace PART_1
         {
             Console.WriteLine("Lets scale the recipe! The more the merrier.");
 
-            Console.Write("\nEnter scaling factor (0.5, 2 or 3)");
+            Console.WriteLine("\nEnter scaling factor (0.5, 2 or 3)");
             double factor = double.Parse(Console.ReadLine()); // User enters the factor theyd like to scale.
             
             for(int i = 0; i < quantities.Length; i++)
             {
                 quantities[i] = originalQuantities[i] * factor;  // Multiplying the original values by the factor
-            }                                                    // and assigning the values to quantities.
+                                                                 // and assigning the values to quantities.
+               
+                if (measurement[i] == "teaspoon")
+                {
+                    quantities[i] /= 3.0;
+                    measurement[i] = "tablespoon";
+
+                } else if (measurement[i] == "cup"){
+                    quantities[i] *= 16.0;
+                    measurement[i] = "tablespoon";
+                }
+
+            }
 
             for (int i = 0; i < quantities.Length; i++)
             {
@@ -320,26 +411,50 @@ namespace PART_1
         // Method called Clear which clears all the recipe input.
         public void Clear()
         {
-            ingredients = null;
-            quantities = null;       // Set all variables to null (empty)
-            measurement = null;
-            stepNum = null;
-            recipeName = null;
+            Console.WriteLine("Are you sure you'd like to reset? (Yes or No)");
+            string confirmation = Console.ReadLine();
 
-            Console.WriteLine("Oops! Your data has been cleared.");
+            if (confirmation.Equals("Yes"))
+            {
+                ingredients = null;
+                quantities = null;       // Set all variables to null (empty)
+                measurement = null;
+                stepDescriptions = null;
+                recipeName = null;
+
+                Console.WriteLine("Oops! Your data has been cleared.");
+            }
+           
         }
 
         //--------------------------------------------------------------------------------
         // 
         public void Exit()
         {
-            Console.WriteLine("Awwww :( Sad to see you go.");  
-            Console.WriteLine("Are you sure you would like to exit? (Yes or No)"); // Confirming if the user would like to exit.
-            String exiting = Console.ReadLine();
+            try
+            {
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("Awwww :( Sad to see you go.");
+                Console.ResetColor();
+                Console.WriteLine("Are you sure you would like to exit? (Yes or No)"); // Confirming if the user would like to exit.
+                String exiting = Console.ReadLine();
 
-            if(exiting.Equals("Yes")) { 
-               
-                Environment.Exit(0);  // Exits application
+                if (exiting.Equals("Yes"))
+                {
+                    Environment.Exit(0);  // Exits application
+                }
+
+            } catch (FormatException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input. Please enter Yes or No.", Console.ForegroundColor);
+                Console.ResetColor();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Field is empty. Please enter Yes or No", Console.ForegroundColor);
+                Console.ResetColor();
             }
         }
 
