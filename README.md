@@ -28,16 +28,16 @@ Option 1: The recipe app allows the user to create a recipe with attributes such
 - ingredient name, quantity and measurement (for example, 1 teaspoon of coffee powder)
 - provide steps to follow
 
-Option 2: Display the recipe:
-- Displays the recipe to the user in a neat format with the scaling od ingredients and 
-  the steps to follow.
-
-Option 3: Scale the recipe:
+Option 2: Scale the recipe:
 - The user can decide if the want to scale the quantities of the ingredients up or down.
 
-Option 4: Reset quantities:
+Option 3: Reset quantities:
 - The user can reset the quantities back to the original values entered when creating 
   therecipe.
+
+Option 4: Display the recipe:
+- Displays the recipe to the user in a neat format with the scaling od ingredients and 
+  the steps to follow.
 
 Option 5: Clear all data:
 - All recipe data is cleared. This empties all fields and allows the user to enter a new
@@ -45,5 +45,6 @@ Option 5: Clear all data:
 
 Option 6: Exits the program:
 - Stops the program from running.
+
 
 Link to github repository: https://github.com/Dessyx/PROG-PART-1 
