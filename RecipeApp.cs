@@ -92,9 +92,9 @@ namespace PART_1
                     }
                    
                 } catch (FormatException) {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
                     Console.WriteLine("Invalid input. Please enter a number");
-                    Console.ResetColor();   
+                    Console.ResetColor();   // < -- Code taken from TutorialsPoint
                 }
             }
         }
@@ -388,14 +388,14 @@ namespace PART_1
                     {
                         case "teaspoon":    
                             if (quantities[i] >= 3)                                    // If the measurement is teaspoon + the quantity is greater than 3 
-                        {                                                              // which then means it is 1 tablespoon or more then the necessary conversion
+                            {                                                              // which then means it is 1 tablespoon or more then the necessary conversion
                                 quantities[i] = TeaspoonToTablespoon(quantities[i]);   // is performed.
                                 measurement[i] = "tablespoon";
 
                             } else if (quantities[i] <=3)
-                        {
+                            {
                             measurement[i] = originalMeasurement[i];
-                        }
+                            }
                             break;
                       
                         case "tablespoon":                                              // If the measurement is teaspoon + the quantity is greater than 16
@@ -444,6 +444,10 @@ namespace PART_1
                     measurement[i] = originalMeasurement[i]; // Resets the converted measurements to the orginal measurement.
                 }
 
+                for (int i = 0; i < quantities.Length; i++)
+                {
+                    Console.WriteLine("*  " + quantities[i] + " " + measurement[i] + " of " + ingredients[i]);
+                }
                 Console.WriteLine("All done!");
             } else
             {

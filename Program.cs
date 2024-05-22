@@ -8,6 +8,7 @@ namespace PART_1
 {
     internal class Program
     {
+        // Entry point of the program.
         static void Main(string[] args)
         {
             // Creating a object of a class.
