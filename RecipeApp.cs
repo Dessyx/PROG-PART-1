@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Runtime.Remoting.Lifetime;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -32,8 +33,8 @@ namespace PART_1
 //                                               RECIPE APP CLASS
     internal class RecipeApp
     {
-        RecipeMethods recipe = new RecipeMethods();
-
+        private RecipeMethods recipe = new RecipeMethods();
+        
         //------------------------------------------------------------------
         // Method called Run which:
         // - welcomes user
@@ -42,60 +43,103 @@ namespace PART_1
         public void Run()
         {
             Console.WriteLine("Welcome to Sanele's Recipe App!");
-            int choice;
+            Console.WriteLine("How many recipes do you want to enter?");
+            int numRecipes = int.Parse(Console.ReadLine());
+            try
+            {
 
+                // Checks if the input is not empty.
+                if (numRecipes <= 0)
+                {
+                    // -------- From w3schools -------
+                    throw new ArgumentOutOfRangeException();  // Throw statement was taken from w3schools
+                    // -------------------------------
+                }
+            }
+            catch (FormatException)
+            {
+
+                Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
+                Console.WriteLine("*Please enter a number.*", Console.ForegroundColor);
+                Console.ResetColor(); // < -- Code taken from TutorialsPoint
+            }
+
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
+                Console.WriteLine("*Field is empty. Please enter a number.*", Console.ForegroundColor);
+                Console.ResetColor(); // < -- Code taken from TutorialsPoint
+            }
+
+            int count = 0;
+            bool recipeAdded = false;
             while (true)
             {
-                //Prompt the user to choose what action they'd like to take.
-                Console.WriteLine("\nPick a option: ");
-                try
+
+
+                while (count < numRecipes)
                 {
+
+                    //Prompt the user to choose what action they'd like to take.
+                    Console.WriteLine("\nPick a option: ");
+                    /*try
+                    {*/
                     // Providing user with options:
-                    Console.WriteLine("1) Enter details of the recipe");              
-                    Console.WriteLine("2) Scale your recipe: ");
-                    Console.WriteLine("3) Reset quantities: ");
-                    Console.WriteLine("4) Display your recipe: ");
-                    Console.WriteLine("5) Clear all data: "); 
-                    Console.WriteLine("6) Exit the program: ");
-                    Console.WriteLine("Enter your choice: ");
-
-                    //Taking in user input.
-                    choice = int.Parse(Console.ReadLine());
-
-                    // Performing an action based on the user input.
-                    switch (choice)
+                    Console.WriteLine("1) Enter details of recipe");
+                    Recipe recipes = new Recipe();
+                    recipe.RecipeInformation(recipes);
+                    recipe.CountingSteps(recipes);
+                    /*catch (FormatException)
                     {
-                        case 1:
-                            recipe.RecipeInformation();
-                            recipe.CountingSteps();
-                            break;
-                        case 2:
-                            recipe.ScaleRecipe();
-                            break;
-                        case 3:
-                            recipe.QuantitiesReset();
+                        Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
+                        Console.WriteLine("Invalid input. Please enter a number");
+                        Console.ResetColor();   // < -- Code taken from TutorialsPoint
+                    }*/
 
-                            break;
-                        case 4:
-                             recipe.DisplayRecipe();
-                            break;
-                        case 5:
-                            recipe.Clear();
-                            break;
-                        case 6:
-                            recipe.Exit();
-                            
-                            break;
-                        default:
-                            Console.WriteLine("Invalid choice, please pick a option between 1 and 6");
-                            continue;
 
-                    }
-                   
-                } catch (FormatException) {
-                    Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
-                    Console.WriteLine("Invalid input. Please enter a number");
-                    Console.ResetColor();   // < -- Code taken from TutorialsPoint
+                    count++;
+                }
+
+                int choice;
+                Console.WriteLine("\n1) Scale your recipe: ");
+                Console.WriteLine("2) Reset quantities: ");
+                Console.WriteLine("3) Display your recipe: ");
+                Console.WriteLine("4) Clear all data: ");
+                Console.WriteLine("5) Exit the program: ");
+                Console.WriteLine("Enter your choice: ");
+
+                //Taking in user input.
+                choice = int.Parse(Console.ReadLine());
+
+                // Performing an action based on the user input.
+                switch (choice)
+                {
+
+                    case 1:
+                        recipe.ScaleRecipe();
+                        continue;
+                    case 2:
+                        recipe.QuantitiesReset();
+                        continue;
+                        
+                    case 3:
+                        recipe.DisplayRecipe();
+                        continue;
+                    case 4:
+                        recipe.Clear();
+                        continue;                       
+                    case 5:
+                        recipe.Exit();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice, please pick a option between 1 and 6");
+                        continue;
+
+                }
+
+                if (choice >= 1 && choice <= 4)
+                {
+                    break;
                 }
             }
         }
@@ -122,20 +166,23 @@ namespace PART_1
         private RecipeInformation<double> quantitiesLst;
         private RecipeInformation<string> stepDescriptionsLst;
 
-        // RecipeInformation
+        private List<Recipe> recipeLst = new List<Recipe>();
 
         //------------------------------------------------------------------------
         // Method called RecipeMeasurement which captures and stores user input 
         // about the recipe such as ingredients, quantities and measurement.
-        public void RecipeInformation()
+        public void RecipeInformation(Recipe recipes)
         {
             recipeNameLst = new RecipeInformation<string>();
+            
+
             Console.WriteLine("Lets make a recipe!");
 
             // Prompts user to enter the name they'd like to give the recipe.   
             Console.WriteLine("What would you like to name the recipe?");
             recipeName = Console.ReadLine();
-            recipeNameLst.add(recipeName);
+            recipeNameLst.add(recipeName); // remove
+            recipes.setRecipeName(recipeName);
 
             while (recipeNameLst.getSize() == 0)
             {
@@ -209,7 +256,8 @@ namespace PART_1
                     ingredient = Console.ReadLine();
                 }
 
-                ingredientsLst.add(ingredient);
+                ingredientsLst.add(ingredient); // remove
+                recipes.setIngredient(ingredient);
                 //--------
 
                 while (true)        // Aquires the quantity of each ingredient
@@ -230,7 +278,8 @@ namespace PART_1
                             // -------------------------------
                         }
 
-                        quantitiesLst.add(quantityD);
+                        quantitiesLst.add(quantityD); // remove
+                        recipes.setQuantity(quantityD);
                         break;
 
                     }
@@ -270,9 +319,14 @@ namespace PART_1
                     measurementInput = Console.ReadLine();
                 }
 
-                measurementLst.add(measurementInput);
-
+                measurementLst.add(measurementInput); // remove
+                recipes.setMeasurement(measurementInput);
             }
+
+            
+
+
+
         }
 
 
@@ -280,7 +334,7 @@ namespace PART_1
         //----------------------------------------------------------------------
         // Method called CountingSteps which asks the user how many steps they'd
         // like to add and captures a description for each.
-        public void CountingSteps() 
+        public void CountingSteps(Recipe recipes) 
         {
             Console.ResetColor();  // < -- Code taken from TutorialsPoint
 
@@ -345,8 +399,11 @@ namespace PART_1
                     description = Console.ReadLine().Trim();
                    
                 }
-                stepDescriptionsLst.add(description);
-               
+                stepDescriptionsLst.add(description); // remove
+                recipes.setDescription(description);
+                recipeLst.Add(recipes);
+
+
             }
 
         }
@@ -356,72 +413,15 @@ namespace PART_1
         // Method called ScaleRecipe which scales the recipe up or down depending
         // on the users choice.
 
-        public double TeaspoonToTablespoon(double quantity, int i)     // Methods that scale the quantities
-        {
-            return quantitiesLst.returnValue(i) / 3;
-        }
-
-        public double TablespoonToCup(double quantity, int i)
-        {
-            Console.WriteLine("16 ");
-            return quantitiesLst.returnValue(i) / 16;
-        }
-
+      
 
         public void ScaleRecipe()
         {
-            Console.WriteLine("Lets scale the recipe! The more the merrier.");
-            Console.WriteLine("\nEnter scaling factor (0.5, 2 or 3)");
+            displayRecipeNames();
+            Console.WriteLine("Enter the number of the recipe you would like to scale: ");
+            int recipeChoice = int.Parse(Console.ReadLine());
 
-            double factor = double.Parse(Console.ReadLine()); // User enters the factor they'd like to scale.
-            
-            for(int i = 0; i < quantitiesLst.getSize(); i++)
-            {
-
-                quantitiesLst.Update(i, quantitiesLst.returnValue(i) * factor);   // Multiplying the original values by the factor  
-                                                                                  // and assigning the values to quantities.
-
-                // Update units of measurement based on measurement
-                switch (measurementLst.returnValue(i))
-                    {
-                        case "teaspoon":    
-                            if (quantitiesLst.returnValue(i) >= 3)    // If the measurement is teaspoon + the quantity is greater than 3 
-                            {                                         // which then means it is 1 tablespoon or more then the necessary conversion
-                                quantitiesLst.Update(i, TeaspoonToTablespoon(quantitiesLst.returnValue(i), i));   // is performed.
-                                measurementLst.Update(i, "tablespoon");
-                            } else if (quantitiesLst.returnValue(i) <=3)
-                            {
-                            /*measurement[i] = originalMeasurement[i];*/
-                            measurementLst.Update(i, measurementLst.returnCopyValue(i));
-                            }
-                            break;
-                      
-                        case "tablespoon":                           // If the measurement is teaspoon + the quantity is greater than 16
-                        if (quantitiesLst.returnValue(i) >= 16)      // which then means it is 1 cup or more then the necessary conversion
-                        {                                            // is performed.
-                            quantitiesLst.Update(i, TablespoonToCup(quantitiesLst.returnValue(i), i));
-                            measurementLst.Update(i, "cup");
-                        } else if (quantitiesLst.returnValue(i) <= 3)
-                        {
-                            measurementLst.Update(i, measurementLst.returnCopyValue(i));
-                        }
-                        break;
-
-                    case "cup":                                      // If the measurement is cup, the measurement stays the same
-                        measurementLst.Update(i, "cup");
-                        break;
-                }
-                
-
-            }
-
-            for (int i = 0; i < quantitiesLst.getSize(); i++)
-            {
-                Console.WriteLine();    
-                Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
-            }
-
-            Console.WriteLine("\nAll done!");
+            recipeLst[recipeChoice - 1].scaling();
         }
 
         //-----------------------------------------------------------------------------
@@ -453,42 +453,27 @@ namespace PART_1
         // Method called DisplayRecipe which displays the recipe information.
         public void DisplayRecipe()
         {
-            Console.WriteLine("------------------------------------");
-            Console.ForegroundColor = ConsoleColor.Magenta; // < -- Code taken from TutorialsPoint
-            Console.WriteLine("           RECIPE: " + recipeName);
-            Console.ResetColor(); // < -- Code taken from TutorialsPoint
-            Console.WriteLine("------------------------------------");
 
+            displayRecipeNames();
+            Console.WriteLine("Enter the number of the recipe you would like to view: ");
+            int recipeChoice = int.Parse(Console.ReadLine());
 
-            //If the fields are empty, displays the error message and prompts user to proceed to step 1.
-            if (quantitiesLst != null && measurementLst.getSize() > 0 && ingredientsLst.getSize() > 0)
-            {  // Error handling
-
-                Console.WriteLine("\nIngredients:");
-                for (int i = 0; i < ingredientsLst.getSize(); i++)
-                {   // Displays all ingredients as well as their quantities and measurememts.     
-                    Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
-
-                }
-
-                int numbering = 1; // Numbering for displaying the steps
-                Console.WriteLine("\nSteps:");
-                for (int i = 0; i < stepDescriptionsLst.getSize(); i++)
-                {
-                    Console.WriteLine(numbering + " - " + stepDescriptionsLst.returnValue(i)); // displays each step as well as its dscription.
-                    numbering++;
-                }
-
-            }
-            else
-            {
-                Console.WriteLine("Fields are empty. Please proceed to step 1");
-            }
+            recipeLst[recipeChoice - 1].printRecipeValues();
 
         }
 
 
+        public void displayRecipeNames()
+        {
 
+
+            for (int i = 0; i < recipeLst.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + recipeLst[i].getRecipeName());
+
+
+            }
+        }
         //-------------------------------------------------------------------------------
         // Method called Clear which clears all the recipe input.
         public void Clear()
