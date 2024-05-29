@@ -46,7 +46,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecipeApp.cs" />
-    <Compile Include="RecipeIngredients.cs" />
+    <Compile Include="RecipeInformation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

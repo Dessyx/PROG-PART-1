@@ -8,6 +8,7 @@ using System.Runtime.Remoting.Lifetime;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 //Deslynn Fenyes
 //STD: ST10251981
@@ -114,16 +115,12 @@ namespace PART_1
         private int steps;
         private double quantityD;
 
-        //Creating Arrays
-        private string[] ingredients;
-        private RecipeIngredients<string> ingredientsLst;
-        private RecipeIngredients<string> measurementLst;
-        private double[] quantities;
-        private RecipeIngredients<double> quantitiesLst;
-        private double[] originalQuantities;
-        private String[] measurement;
-        private String[] originalMeasurement;
-        string[] stepDescriptions;
+        //Creating Generic Lists
+        private RecipeInformation<string> recipeNameLst;
+        private RecipeInformation<string> ingredientsLst;
+        private RecipeInformation<string> measurementLst;
+        private RecipeInformation<double> quantitiesLst;
+        private RecipeInformation<string> stepDescriptionsLst;
 
         // RecipeInformation
 
@@ -132,14 +129,15 @@ namespace PART_1
         // about the recipe such as ingredients, quantities and measurement.
         public void RecipeInformation()
         {
-
+            recipeNameLst = new RecipeInformation<string>();
             Console.WriteLine("Lets make a recipe!");
 
             // Prompts user to enter the name they'd like to give the recipe.   
             Console.WriteLine("What would you like to name the recipe?");
             recipeName = Console.ReadLine();
+            recipeNameLst.add(recipeName);
 
-            while (String.IsNullOrWhiteSpace(recipeName))
+            while (recipeNameLst.getSize() == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
                 Console.WriteLine("Field is empty! Please enter an input", Console.ForegroundColor);
@@ -149,8 +147,6 @@ namespace PART_1
             }
 
             //          -----------------------------------------------------
-
-
 
             // Prompts user to enter the number of ingredients they would like to capture.               
             while (true)
@@ -187,18 +183,14 @@ namespace PART_1
                 }
 
             }
-            // Declaring the array length to be the amount of ingredients.
-            ingredients = new string[ingredientAmount];
-            ingredientsLst = new RecipeIngredients<string>();
-            quantities = new double[ingredientAmount];
-            quantitiesLst = new RecipeIngredients<double>();
-            originalQuantities = new double[ingredientAmount];
-            measurement = new String[ingredientAmount];
-            measurementLst = new RecipeIngredients<string>();
+            // Initializing Lists inside the method.           
+            ingredientsLst = new RecipeInformation<string>();
+            quantitiesLst = new RecipeInformation<double>();
+            measurementLst = new RecipeInformation<string>();
 
             //          -----------------------------------------------------
 
-            for (int i = 0; i < ingredients.Length; i++)
+            for (int i = 0; i < ingredientAmount; i++)
             {
 
                 Console.WriteLine("--------INGREDIENT-----------");
@@ -211,12 +203,12 @@ namespace PART_1
                 while (string.IsNullOrWhiteSpace(ingredient))   // loops until the user inputs the recipe name
                 {
                     Console.ForegroundColor = ConsoleColor.Red;  // < -- Code taken from TutorialsPoint
-                    Console.WriteLine("*Please enter a recipe name.*", Console.ForegroundColor);
+                    Console.WriteLine("*Please enter a ingredient name.*", Console.ForegroundColor);
                     Console.ResetColor(); // < -- Code taken from TutorialsPoint
                     Console.Write("Ingredient name:");
                     ingredient = Console.ReadLine();
                 }
-                ingredients[i] = ingredient;
+
                 ingredientsLst.add(ingredient);
                 //--------
 
@@ -238,9 +230,7 @@ namespace PART_1
                             // -------------------------------
                         }
 
-                        quantities[i] = quantityD;
                         quantitiesLst.add(quantityD);
-                        originalQuantities[i] = quantities[i];
                         break;
 
                     }
@@ -280,10 +270,7 @@ namespace PART_1
                     measurementInput = Console.ReadLine();
                 }
 
-                measurement[i] = measurementInput;
                 measurementLst.add(measurementInput);
-                originalMeasurement = new string[ingredients.Length];
-                originalMeasurement[i] = measurement[i];
 
             }
         }
@@ -308,7 +295,7 @@ namespace PART_1
                     Console.WriteLine("\nEnter the number of steps: ");
                     string input = Console.ReadLine();
                     steps = int.Parse(input);
-                    stepDescriptions = new string[steps];
+                    stepDescriptionsLst = new RecipeInformation<string>();
 
                     // Checks if the input is a integer and not empty.
                     if (steps <= 0)
@@ -358,8 +345,7 @@ namespace PART_1
                     description = Console.ReadLine().Trim();
                    
                 }
-
-                stepDescriptions[i] = description;
+                stepDescriptionsLst.add(description);
                
             }
 
@@ -389,45 +375,39 @@ namespace PART_1
 
             double factor = double.Parse(Console.ReadLine()); // User enters the factor they'd like to scale.
             
-            for(int i = 0; i < quantities.Length; i++)
+            for(int i = 0; i < quantitiesLst.getSize(); i++)
             {
-                quantities[i] = originalQuantities[i] * factor;  // Multiplying the original values by the factor
-                quantitiesLst.Update(i, quantitiesLst.returnValue(i) * factor);                                                // and assigning the values to quantities.
 
-               
+                quantitiesLst.Update(i, quantitiesLst.returnValue(i) * factor);   // Multiplying the original values by the factor  
+                                                                                  // and assigning the values to quantities.
 
-
-                    // Update units of measurement based on measurement
-                    switch (measurementLst.returnValue(i))
+                // Update units of measurement based on measurement
+                switch (measurementLst.returnValue(i))
                     {
                         case "teaspoon":    
-                            if (quantitiesLst.returnValue(i) >= 3)                                    // If the measurement is teaspoon + the quantity is greater than 3 
-                            {                                                              // which then means it is 1 tablespoon or more then the necessary conversion
+                            if (quantitiesLst.returnValue(i) >= 3)    // If the measurement is teaspoon + the quantity is greater than 3 
+                            {                                         // which then means it is 1 tablespoon or more then the necessary conversion
                                 quantitiesLst.Update(i, TeaspoonToTablespoon(quantitiesLst.returnValue(i), i));   // is performed.
-                                measurement[i] = "tablespoon";
                                 measurementLst.Update(i, "tablespoon");
                             } else if (quantitiesLst.returnValue(i) <=3)
                             {
-                            measurement[i] = originalMeasurement[i];
+                            /*measurement[i] = originalMeasurement[i];*/
                             measurementLst.Update(i, measurementLst.returnCopyValue(i));
                             }
                             break;
                       
-                        case "tablespoon":                                              // If the measurement is teaspoon + the quantity is greater than 16
-                        if (quantitiesLst.returnValue(i) >= 16)                                        // which then means it is 1 cup or more then the necessary conversion
-                        {                                                               // is performed.
+                        case "tablespoon":                           // If the measurement is teaspoon + the quantity is greater than 16
+                        if (quantitiesLst.returnValue(i) >= 16)      // which then means it is 1 cup or more then the necessary conversion
+                        {                                            // is performed.
                             quantitiesLst.Update(i, TablespoonToCup(quantitiesLst.returnValue(i), i));
-                            measurement[i] = "cup";
                             measurementLst.Update(i, "cup");
-                            Console.WriteLine("Update cup");
                         } else if (quantitiesLst.returnValue(i) <= 3)
                         {
-                            measurementLst.Update(i, originalMeasurement[i]);
+                            measurementLst.Update(i, measurementLst.returnCopyValue(i));
                         }
                         break;
 
-                    case "cup":                                                         // If the measurement is cup, the measurement stays the same
-                        measurement[i] = "cup";
+                    case "cup":                                      // If the measurement is cup, the measurement stays the same
                         measurementLst.Update(i, "cup");
                         break;
                 }
@@ -435,7 +415,7 @@ namespace PART_1
 
             }
 
-            for (int i = 0; i < quantities.Length; i++)
+            for (int i = 0; i < quantitiesLst.getSize(); i++)
             {
                 Console.WriteLine();    
                 Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
@@ -455,25 +435,18 @@ namespace PART_1
 
                 if(reset.Equals("yes")) {
 
-               /* for (int i = 0; i < quantities.Length; i++)
-                {
-                    quantities[i] = originalQuantities[i];  // Resests the mutiplied values to the orgininal values.
-                    *//*measurement[i] = originalMeasurement[i];*//* // Resets the converted measurements to the orginal measurement.
-                }*/
-
                 quantitiesLst.Reset();
                 measurementLst.Reset();
-                for (int i = 0; i < quantities.Length; i++)
+                for (int i = 0; i < quantitiesLst.getSize(); i++)
                 {
                     Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
                 }
                 Console.WriteLine("All done!");
             } else
             {
-                Console.WriteLine("Data has not been cleared");
+                Console.WriteLine("Data has not been reset");
             }
-                   
-            
+                            
         }
 
         //----------------------------------------------------------------------
@@ -488,22 +461,21 @@ namespace PART_1
 
 
             //If the fields are empty, displays the error message and prompts user to proceed to step 1.
-            if (quantities != null && measurementLst.getSize() > 0 && ingredientsLst.getSize() > 0)
+            if (quantitiesLst != null && measurementLst.getSize() > 0 && ingredientsLst.getSize() > 0)
             {  // Error handling
 
                 Console.WriteLine("\nIngredients:");
                 for (int i = 0; i < ingredientsLst.getSize(); i++)
                 {   // Displays all ingredients as well as their quantities and measurememts.     
-       /*             Console.WriteLine("*  " + quantities[i] + " " + measurement[i] + " of " + ingredients[i]);*/
                     Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
 
                 }
 
                 int numbering = 1; // Numbering for displaying the steps
                 Console.WriteLine("\nSteps:");
-                for (int i = 0; i < stepDescriptions.Length; i++)
+                for (int i = 0; i < stepDescriptionsLst.getSize(); i++)
                 {
-                    Console.WriteLine(numbering + " - " + stepDescriptions[i]); // displays each step as well as its dscription.
+                    Console.WriteLine(numbering + " - " + stepDescriptionsLst.returnValue(i)); // displays each step as well as its dscription.
                     numbering++;
                 }
 
@@ -538,10 +510,10 @@ namespace PART_1
                     if (confirmation.Equals("yes")) // Clears the variables if the user says yes
                     {
                         ingredientsLst = null;
-                        quantities = null;       // Set all variables to null (empty)
+                        quantitiesLst = null;       // Set all Lists to null (empty)
                         measurementLst = null;
-                        stepDescriptions = null;
-                        recipeName = null;
+                        stepDescriptionsLst = null;
+                        recipeNameLst = null;
 
                         Console.ForegroundColor = ConsoleColor.DarkCyan; // < -- Code taken from TutorialsPoint
                         Console.WriteLine("Oops! Your data has been cleared.");

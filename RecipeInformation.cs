@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace PART_1
 {
-    internal class RecipeIngredients <T>
+    // Generic Class
+    internal class RecipeInformation <T>
     {
 
         private List<T> items;
         private List<T> initialCopy;
 
-        public RecipeIngredients() {
+        public RecipeInformation() {
             
             items = new List<T>();
             initialCopy = new List<T>();
@@ -80,5 +81,7 @@ namespace PART_1
             return items.Count;
 
         }
+
+
     }
 }
