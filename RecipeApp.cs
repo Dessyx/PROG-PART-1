@@ -506,7 +506,7 @@ namespace PART_1
             int recipeChoice = int.Parse(Console.ReadLine());
 
             recipeLst[recipeChoice - 1].printRecipeValues();
-            Console.WriteLine("Total Calories: "+ recipeLst[recipeChoice - 1].calculateCalories());
+            Console.WriteLine("Total Calories: " + recipeLst[recipeChoice - 1].calculateCalories());
 
             /*if ( < 200)
             {
@@ -525,15 +525,17 @@ namespace PART_1
 
         public void displayRecipeNames()
         {
+            Console.ForegroundColor = ConsoleColor.Blue; // < -- Code taken from TutorialsPoint
             recipeLst.Sort((x, y) => x.getRecipeName().CompareTo(y.getRecipeName()));
 
             for (int i = 0; i < recipeLst.Count; i++)
             {
               
-                Console.WriteLine((i + 1) + recipeLst[i].getRecipeName());
+                Console.WriteLine((i + 1) + recipeLst[i].getRecipeName(), Console.ForegroundColor);
 
 
             }
+            Console.ResetColor(); // < -- Code taken from TutorialsPoint
         }
 
 
