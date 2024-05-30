@@ -8,12 +8,14 @@ namespace PART_1
 {
     internal class Recipe
     {
-        // Initializing Lists inside the method.
+        // Initializing Lists.
         private RecipeInformation<string> recipeNameLst;  
         private RecipeInformation<string> ingredientsLst;
         private RecipeInformation<double> quantitiesLst;
         private RecipeInformation<string> measurementLst;
         private RecipeInformation<string> stepDescriptionsLst;
+        private RecipeInformation<double> caloriesLst;
+        private RecipeInformation<string> foodGroupLst;
 
         public Recipe()
         {
@@ -22,6 +24,8 @@ namespace PART_1
             quantitiesLst = new RecipeInformation<double>();
             measurementLst = new RecipeInformation<string>();
             stepDescriptionsLst = new RecipeInformation<string>();
+            caloriesLst = new RecipeInformation<double>();
+            foodGroupLst = new RecipeInformation<string>();
         }
 
         public void setRecipeName(string name) {
@@ -49,6 +53,40 @@ namespace PART_1
             stepDescriptionsLst.add(description);
         }
 
+        public void setCalories(double calories)
+        {
+            caloriesLst.add(calories);
+        }
+
+        public double getCalories()
+        {
+            return caloriesLst.returnValue(0);
+        }
+
+        public void setFoodGroup(string group)
+        {
+            foodGroupLst.add(group);
+        }
+
+        public string getFoodGroup()
+        {
+            return foodGroupLst.returnValue(0);
+        }
+
+        
+        public double calculateCalories()
+        {
+            double totalCalories = 0.0;
+
+            /*foreach (var calorie in caloriesLst)
+            {
+                totalCalories += calorie;
+            }*/
+
+            return totalCalories;
+        }
+
+
 
         public void printRecipeValues()
         {
@@ -61,7 +99,8 @@ namespace PART_1
             for (int i = 0; i < ingredientsLst.getSize(); i++)
             {   // Displays all ingredients as well as their quantities and measurememts.     
                 Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
-
+                Console.WriteLine("Number of calories: " + caloriesLst.returnValue(i));
+                Console.WriteLine("Food group: " +  foodGroupLst.returnValue(i));
             }
 
             int numbering = 1; // Numbering for displaying the steps
