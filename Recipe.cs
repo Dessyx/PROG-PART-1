@@ -9,7 +9,7 @@ namespace PART_1
     public class Recipe
     {
         // Initializing Lists.
-        private RecipeInformation<string> recipeNameLst;
+        private RecipeInformation<string> recipeNameLst;  // Generic lists
         private RecipeInformation<string> ingredientsLst;
         private RecipeInformation<double> quantitiesLst;
         private RecipeInformation<string> measurementLst;
@@ -28,33 +28,33 @@ namespace PART_1
             foodGroupLst = new RecipeInformation<string>();
         }
 
-        public void setRecipeName(string name)
+        public void setRecipeName(string name)  // Sets recipe names
         {
             recipeNameLst.add(name);
         }
 
-        public string getRecipeName()
+        public string getRecipeName() // gets recipe names
         {
             return recipeNameLst.returnValue(0);
         }
-        public void setIngredient(string name)
+        public void setIngredient(string name) // sets ingredient names
         {
             ingredientsLst.add(name);
         }
-        public void setQuantity(double quantity)
+        public void setQuantity(double quantity) // sets quantities
         {
             quantitiesLst.add(quantity);
         }
-        public void setMeasurement(string measurement)
+        public void setMeasurement(string measurement)  // sets measurement
         {
             measurementLst.add(measurement);
         }
-        public void setDescription(string description)
+        public void setDescription(string description)  //sets description of the steps
         {
             stepDescriptionsLst.add(description);
         }
 
-        public void setCalories(double calories)
+        public void setCalories(double calories)  // sets the calories
         {
             if (calories <= 0)
             {
@@ -69,7 +69,7 @@ namespace PART_1
             return caloriesLst.returnValue(0);
         }
 
-        public void setFoodGroup(string group)
+        public void setFoodGroup(string group)  // sets the food group
         {
             foodGroupLst.add(group);
         }
@@ -80,7 +80,7 @@ namespace PART_1
         }
 
 
-        public double calculateCalories()
+        public double calculateCalories()  // calculates the total calories
         {
             double totalCalories = 0;
             for (int i = 0; i < caloriesLst.getSize(); i++)
@@ -108,7 +108,7 @@ namespace PART_1
             return "This recipe is considered high in calories.";
         }
 
-        public CalorieExplanations GetCalorieExplanation(double totalCalories)
+        public CalorieExplanations GetCalorieExplanation(double totalCalories) // displays the info based on calorie amount
         {
             if (totalCalories < 200)
             {
@@ -125,9 +125,9 @@ namespace PART_1
         }
 
 
-        public delegate void CalorieAlertDelegate(double totalCalories);
+        public delegate void CalorieAlertDelegate(double totalCalories);  // delcaring delegate
 
-        public void CheckCalorieAlert()
+        public void CheckCalorieAlert()  // warns the user if the calories excede 300
         {
             double totalCalories = calculateCalories();
             if (totalCalories > 300)
@@ -165,9 +165,12 @@ namespace PART_1
                 Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
                 Console.WriteLine("Number of calories: " + caloriesLst.returnValue(i));
                 Console.WriteLine("Food group: " + foodGroupLst.returnValue(i));
-                Console.WriteLine("Total calories: " + totalCalories);
-                Console.WriteLine(explanationDelegate(totalCalories));
+                
+                Console.WriteLine(explanationDelegate(totalCalories) + "\n");
+                
             }
+            Console.WriteLine("Total calories: " + totalCalories);
+
 
             int numbering = 1; // Numbering for displaying the steps
             Console.WriteLine("\nSteps:");
@@ -248,7 +251,7 @@ namespace PART_1
         }
 
 
-        public void reset()
+        public void reset()  //  resets the ingedient information
         {
             quantitiesLst.Reset();
             measurementLst.Reset();
@@ -261,7 +264,7 @@ namespace PART_1
         }
 
 
-        public void clearData()
+        public void clearData()  // clears the data 
         {
             recipeNameLst = null;
             ingredientsLst = null;
@@ -277,3 +280,6 @@ namespace PART_1
         
     }
 }
+//------------------------------------------<<< End Of File >>>-------------------------------------------------------
+
+

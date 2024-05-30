@@ -19,18 +19,18 @@ namespace PART_1
             initialCopy = new List<T>();
         }
 
-        public void add(T item)
+        public void add(T item)  // adds an item
         {
             items.Add(item);
             initialCopy.Add(item);
         }
 
-        public void Update( int index, T newitem)
+        public void Update( int index, T newitem)  // updates to the new item
         {
             items[index] = newitem;
         }
 
-        public void Reset() {
+        public void Reset() {  // resets the item to the old value
             
             for (int i = 0; i < items.Count; i++)
             {
@@ -38,7 +38,7 @@ namespace PART_1
             }
         }
 
-        public void remove(T item)
+        public void remove(T item)  // removes the item form the list
         {
             if (items.Contains(item))
             {
@@ -51,7 +51,7 @@ namespace PART_1
            
         }
 
-        public void display()
+        public void display()  
         {
             if(items.Count == 0)
             {
@@ -65,18 +65,18 @@ namespace PART_1
             }
         }
 
-        public T returnValue(int index)
+        public T returnValue(int index)  // returns the value at the index
         {
             return items[index];
         }
 
 
-        public T returnCopyValue(int index)
+        public T returnCopyValue(int index)  // returns the original value
         {
             return initialCopy[index];
         }
 
-        public int getSize()
+        public int getSize()  // gets the size of the array
         {
             return items.Count;
 
@@ -85,3 +85,4 @@ namespace PART_1
 
     }
 }
+//------------------------------------------<<< End Of File >>>-------------------------------------------------------

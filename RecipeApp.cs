@@ -133,9 +133,9 @@ namespace PART_1
                 
 
                 Console.WriteLine("----------------------------");
-                Console.WriteLine("       YOUR RECIPES");
-                recipe.displayRecipeNames();
+                Console.WriteLine("       YOUR RECIPES");              
                 Console.WriteLine("----------------------------");
+                recipe.displayRecipeNames();
 
                 int choice;
                 Console.WriteLine("\n1) Scale your recipe: ");
@@ -281,7 +281,7 @@ namespace PART_1
             for (int i = 0; i < ingredientAmount; i++)
             {
 
-                Console.WriteLine("--------INGREDIENT-----------");
+                Console.WriteLine("--------INGREDIENT " + i + "-----------");
                 Console.Write("Ingredient name:");
                 string ingredient = Console.ReadLine();
 
@@ -390,7 +390,7 @@ namespace PART_1
 
                     string foodGroup;
 
-                    Console.WriteLine(
+                    Console.WriteLine(  // Information taken from sweetlife.com (sweetlife, 2022)
                         "1) Starchy foods !! [These are commonly known as Carbohydrates. These have a great source of energy and nutrients.]"
                         + "\n2) Vegetables and fruits  [These contain alot of vitimins and minerals as well as fibre.]"
                         + "\n3) Dry beans, peas, lentils and soya  [These are low in fat being a good source of fibre, vitimins and minerals.]"
@@ -402,8 +402,6 @@ namespace PART_1
 
                     Console.WriteLine("What food group does this ingredient belong to?");
                     foodGroup = Console.ReadLine();
-                    recipes.setFoodGroup(foodGroup);
-
 
                     while (string.IsNullOrEmpty(foodGroup))
                     {
@@ -412,10 +410,10 @@ namespace PART_1
                         Console.ResetColor(); // < -- Code taken from TutorialsPoint
                         Console.WriteLine("What food group does this ingredient belong to?");
                         foodGroup = Console.ReadLine();
-                        recipes.setFoodGroup(foodGroup);
+                        
                     }
 
-
+                    recipes.setFoodGroup(foodGroup);
 
                 }
                 catch (FormatException)
@@ -585,7 +583,7 @@ namespace PART_1
             for (int i = 0; i < recipeLst.Count; i++)
             {
               
-                Console.WriteLine((i + 1) + recipeLst[i].getRecipeName(), Console.ForegroundColor);
+                Console.WriteLine((i + 1) + " " + recipeLst[i].getRecipeName(), Console.ForegroundColor);
 
 
             }
@@ -720,8 +718,14 @@ namespace PART_1
 
 
     }
-//---------------------------------------------------------------------------------------------------------
-//                                    END OF RECIPE METHODS CLASS
+    //---------------------------------------------------------------------------------------------------------
+    //                                    END OF RECIPE METHODS CLASS
 
+
+
+    //          REFERENCES
+    // sweetlife, 2022. What are the different food groups? A simple explanation.. [Online] 
+    //Available at: https://sweetlife.org.za/what-are-the-different-food-groups-a-simple-explanation/
+    //[Accessed 30 May 2024].
 
 } //------------------------------------------<<< End Of File >>>-------------------------------------------------------
