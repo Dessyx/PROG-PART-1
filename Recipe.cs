@@ -9,7 +9,7 @@ namespace PART_1
     internal class Recipe
     {
         // Initializing Lists inside the method.
-        private RecipeInformation<string> recipeNameLst;
+        private RecipeInformation<string> recipeNameLst;  
         private RecipeInformation<string> ingredientsLst;
         private RecipeInformation<double> quantitiesLst;
         private RecipeInformation<string> measurementLst;
@@ -17,7 +17,7 @@ namespace PART_1
 
         public Recipe()
         {
-            recipeNameLst = new RecipeInformation<string>();
+            recipeNameLst = new RecipeInformation<string>();  
             ingredientsLst = new RecipeInformation<string>();
             quantitiesLst = new RecipeInformation<double>();
             measurementLst = new RecipeInformation<string>();
@@ -141,6 +141,17 @@ namespace PART_1
             }
 
             Console.WriteLine("\nAll done!");
+        }
+
+
+        public void clearData()
+        {
+            recipeNameLst = null;
+            ingredientsLst = null;
+            quantitiesLst = null;       // Set all Lists to null (empty)
+            measurementLst = null;
+            stepDescriptionsLst = null;
+  
         }
 
 

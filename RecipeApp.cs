@@ -72,20 +72,18 @@ namespace PART_1
             }
 
             int count = 0;
-            bool recipeAdded = false;
+          
             while (true)
             {
-
-
                 while (count < numRecipes)
                 {
 
                     //Prompt the user to choose what action they'd like to take.
-                    Console.WriteLine("\nPick a option: ");
+                    
                     /*try
                     {*/
                     // Providing user with options:
-                    Console.WriteLine("1) Enter details of recipe");
+                  
                     Recipe recipes = new Recipe();
                     recipe.RecipeInformation(recipes);
                     recipe.CountingSteps(recipes);
@@ -99,12 +97,17 @@ namespace PART_1
 
                     count++;
                 }
+                
+                Console.WriteLine("----------------------------");
+                Console.WriteLine("      YOUR RECIPES");
+                recipe.displayRecipeNames();
+                Console.WriteLine("----------------------------");
 
                 int choice;
                 Console.WriteLine("\n1) Scale your recipe: ");
                 Console.WriteLine("2) Reset quantities: ");
                 Console.WriteLine("3) Display your recipe: ");
-                Console.WriteLine("4) Clear all data: ");
+                Console.WriteLine("4) Clear a recipes data: ");
                 Console.WriteLine("5) Exit the program: ");
                 Console.WriteLine("Enter your choice: ");
 
@@ -183,6 +186,7 @@ namespace PART_1
             recipeName = Console.ReadLine();
             recipeNameLst.add(recipeName); // remove
             recipes.setRecipeName(recipeName);
+            
 
             while (recipeNameLst.getSize() == 0)
             {
@@ -323,10 +327,6 @@ namespace PART_1
                 recipes.setMeasurement(measurementInput);
             }
 
-            
-
-
-
         }
 
 
@@ -465,21 +465,30 @@ namespace PART_1
 
         public void displayRecipeNames()
         {
-
+            recipeLst.Sort((x, y) => x.getRecipeName().CompareTo(y.getRecipeName()));
 
             for (int i = 0; i < recipeLst.Count; i++)
             {
-                Console.WriteLine((i + 1) + ". " + recipeLst[i].getRecipeName());
+              
+                Console.WriteLine((i + 1) + recipeLst[i].getRecipeName());
 
 
             }
         }
+
+
+
         //-------------------------------------------------------------------------------
         // Method called Clear which clears all the recipe input.
         public void Clear()
         {
             while (true)
             {
+
+                displayRecipeNames();
+                Console.WriteLine("Enter the number of the recipe you would like to clear: ");
+                int recipeChoice = int.Parse(Console.ReadLine());
+
                 try
                 {
                     Console.WriteLine("Are you sure you'd like to clear data? (yes or no)");
@@ -494,11 +503,8 @@ namespace PART_1
 
                     if (confirmation.Equals("yes")) // Clears the variables if the user says yes
                     {
-                        ingredientsLst = null;
-                        quantitiesLst = null;       // Set all Lists to null (empty)
-                        measurementLst = null;
-                        stepDescriptionsLst = null;
-                        recipeNameLst = null;
+
+                        recipeLst[recipeChoice - 1].clearData();
 
                         Console.ForegroundColor = ConsoleColor.DarkCyan; // < -- Code taken from TutorialsPoint
                         Console.WriteLine("Oops! Your data has been cleared.");
