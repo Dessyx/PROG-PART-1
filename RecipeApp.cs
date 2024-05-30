@@ -80,7 +80,7 @@ namespace PART_1
                 if (cleared)
                 {
                     
-                    Console.WriteLine("Would you like to add more recipes? Answer 'yes' or 'no' ");
+                    Console.WriteLine("Would you like to add more recipes? Answer 'yes' or 'no'");
                     string moreRecipes = Console.ReadLine();
 
                     if ( moreRecipes == "yes")
@@ -198,13 +198,6 @@ namespace PART_1
         private int steps;
         private double quantityD;
 
-/*        //Creating Generic Lists
-        private RecipeInformation<string> recipeNameLst;
-        private RecipeInformation<string> ingredientsLst;
-        private RecipeInformation<string> measurementLst;
-        private RecipeInformation<double> quantitiesLst;
-        private RecipeInformation<string> stepDescriptionsLst;*/
-
         private List<Recipe> recipeLst = new List<Recipe>();
 
         //------------------------------------------------------------------------
@@ -212,17 +205,12 @@ namespace PART_1
         // about the recipe such as ingredients, quantities and measurement.
         public void RecipeInformation(Recipe recipes)
         {
-           /* recipeNameLst = new RecipeInformation<string>();*/
             
-
             Console.WriteLine("Lets make a recipe!");
 
             // Prompts user to enter the name they'd like to give the recipe.   
             Console.WriteLine("What would you like to name the recipe?");
             recipeName = Console.ReadLine();
-            /*recipeNameLst.add(recipeName); // remove*/
-           
-            
 
             while (string.IsNullOrEmpty(recipeName))
             {
@@ -271,10 +259,7 @@ namespace PART_1
                 }
 
             }
-/*            // Initializing Lists inside the method.           
-            ingredientsLst = new RecipeInformation<string>();
-            quantitiesLst = new RecipeInformation<double>();
-            measurementLst = new RecipeInformation<string>();*/
+
 
             //          -----------------------------------------------------
 
@@ -297,7 +282,6 @@ namespace PART_1
                     ingredient = Console.ReadLine();
                 }
 
-               /* ingredientsLst.add(ingredient); // remove*/
                 recipes.setIngredient(ingredient);
                 //--------
 
@@ -319,7 +303,6 @@ namespace PART_1
                             // -------------------------------
                         }
 
-                        /*quantitiesLst.add(quantityD); // remove*/
                         recipes.setQuantity(quantityD);
                         break;
 
@@ -367,9 +350,9 @@ namespace PART_1
                     Console.WriteLine("\nPlease enter the number of calories: ");
                     string caloriesInput = Console.ReadLine();
                     double calories = double.Parse(caloriesInput);
-                    
-                    
-                   
+
+
+                    // Checks if the input is a integer and not empty.
                     if (calories <= 0)
                     {
                         
@@ -381,7 +364,7 @@ namespace PART_1
                        
                         recipes.CheckCalorieAlert();
                        
-                        // Checks if the input is a integer and not empty.
+                       
                     }
 
 
@@ -458,7 +441,6 @@ namespace PART_1
                     Console.WriteLine("\nEnter the number of steps: ");
                     string input = Console.ReadLine();
                     steps = int.Parse(input);
-                    /*stepDescriptionsLst = new RecipeInformation<string>();*/
 
                     // Checks if the input is a integer and not empty.
                     if (steps <= 0)
