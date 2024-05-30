@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.Remoting.Lifetime;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
@@ -77,29 +78,16 @@ namespace PART_1
             {
                 while (count < numRecipes)
                 {
-
-                    //Prompt the user to choose what action they'd like to take.
-                    
-                    /*try
-                    {*/
-                    // Providing user with options:
-                  
+                                    
                     Recipe recipes = new Recipe();
                     recipe.RecipeInformation(recipes);
                     recipe.CountingSteps(recipes);
-                    /*catch (FormatException)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
-                        Console.WriteLine("Invalid input. Please enter a number");
-                        Console.ResetColor();   // < -- Code taken from TutorialsPoint
-                    }*/
-
 
                     count++;
                 }
                 
                 Console.WriteLine("----------------------------");
-                Console.WriteLine("      YOUR RECIPES");
+                Console.WriteLine("       YOUR RECIPES");
                 recipe.displayRecipeNames();
                 Console.WriteLine("----------------------------");
 
@@ -306,8 +294,6 @@ namespace PART_1
 
 
 
-
-
                 Console.Write("Meansurement (teaspoon, tablespoon or cup): ");  // Only accepts teaspoon, tablespoon and cup
                 string measurementInput = Console.ReadLine();
 
@@ -327,6 +313,65 @@ namespace PART_1
                 recipes.setMeasurement(measurementInput);
             }
 
+            try  // --------- error handling step input -----------------
+            {
+                // Prompts the user to enter the amount of steps to take.
+                Console.WriteLine("\nEnter the number of calories: ");
+                string caloriesInput = Console.ReadLine();
+                double calories = double.Parse(caloriesInput);
+
+                recipes.setCalories(calories);
+                recipeLst.Add(recipes);
+
+                // Checks if the input is a integer and not empty.
+                if (calories <= 0)
+                {
+                    // -------- From w3schools -------
+                    throw new ArgumentOutOfRangeException();  // Throw statement was takenfrom w3schools
+                    // -------------------------------
+                }
+
+            }
+            catch (FormatException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
+                Console.WriteLine("Invalid input. Please enter a number.", Console.ForegroundColor);
+                Console.ResetColor(); // < -- Code taken from TutorialsPoint
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
+                Console.WriteLine("Field is empty. Please enter the number of steps", Console.ForegroundColor);
+                Console.ResetColor(); // < -- Code taken from TutorialsPoint
+            }
+
+            // Prompts user to enter the food group the ingredient belongs to.   
+            Console.WriteLine("What food group does this ingredient belong to?");
+          
+            string foodGroup;
+
+            Console.WriteLine(
+                "1) Starchy foods  [These are commonly known as Carbohydrates. These have a great source of energy and nutrients.]" 
+                + "\n2) Vegetables and fruits  [These contain alot of vitimins and minerals as well as fibre.]"
+                + "\n3) Dry beans, peas, lentils and soya  [These are low in fat being a good source of fibre, vitimins and minerals.]"
+                + "\n4) Chicken, fish, meat and eggs  [Contains a good amount of protein, vitamins and minerals.]"
+                + "\n5) Milk and dairy products  [Has alot of calcium as well as protein and vitamins.]"
+                + "\n6) Fats and oil  [These plant based fats are way healthier than saturated fats.]"
+                + "\n7) Water  [Your body constantly loses water throughout the day and night. Important to keep hydrated.]"
+                );
+
+            foodGroup = Console.ReadLine();
+            recipes.setFoodGroup(foodGroup);
+
+
+                while (string.IsNullOrEmpty(foodGroup))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
+                    Console.WriteLine("Field is empty! Please enter an input", Console.ForegroundColor);
+                    Console.ResetColor(); // < -- Code taken from TutorialsPoint
+                    Console.WriteLine("What food group does this ingredient belong to?");
+                    foodGroup = Console.ReadLine();
+                }
         }
 
 
@@ -406,6 +451,8 @@ namespace PART_1
 
             }
 
+           
+
         }
 
 
@@ -459,7 +506,20 @@ namespace PART_1
             int recipeChoice = int.Parse(Console.ReadLine());
 
             recipeLst[recipeChoice - 1].printRecipeValues();
+            Console.WriteLine("Total Calories: "+ recipeLst[recipeChoice - 1].calculateCalories());
 
+            /*if ( < 200)
+            {
+                Console.WriteLine("This recipe is low in calories.");
+            }
+            else if (Calories <= 500)
+            {
+                Console.WriteLine("This recipe has a moderate amount of calories.");
+            }
+            else
+            {
+                Console.WriteLine("This recipe is high in calories.");
+            }*/
         }
 
 
