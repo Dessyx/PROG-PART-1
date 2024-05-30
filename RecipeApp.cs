@@ -73,9 +73,54 @@ namespace PART_1
             }
 
             int count = 0;
-          
+            bool cleared = false;
             while (true)
             {
+               
+                if (cleared)
+                {
+                    
+                    Console.WriteLine("Would you like to add more recipes? Answer 'yes' or 'no' ");
+                    string moreRecipes = Console.ReadLine();
+
+                    if ( moreRecipes == "yes")
+                    {
+                        count = 0;
+                        Console.WriteLine("How many recipes do you want to enter?");
+                        numRecipes = int.Parse(Console.ReadLine());
+                        try 
+                        { 
+                        
+
+                            // Checks if the input is not empty.
+                            if (numRecipes <= 0)
+                            {
+                                // -------- From w3schools -------
+                                throw new ArgumentOutOfRangeException();  // Throw statement was taken from w3schools
+                                                                          // -------------------------------
+                            }
+                        }
+                        catch (FormatException)
+                        {
+
+                            Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
+                            Console.WriteLine("*Please enter a number.*", Console.ForegroundColor);
+                            Console.ResetColor(); // < -- Code taken from TutorialsPoint
+                        }
+
+                        catch (ArgumentOutOfRangeException)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
+                            Console.WriteLine("*Field is empty. Please enter a number.*", Console.ForegroundColor);
+                            Console.ResetColor(); // < -- Code taken from TutorialsPoint
+                        }
+
+                        cleared = false;
+                    }
+                }
+                   
+                   
+                
                 while (count < numRecipes)
                 {
                                     
@@ -86,6 +131,7 @@ namespace PART_1
                     count++;
                 }
                 
+
                 Console.WriteLine("----------------------------");
                 Console.WriteLine("       YOUR RECIPES");
                 recipe.displayRecipeNames();
@@ -110,14 +156,16 @@ namespace PART_1
                         recipe.ScaleRecipe();
                         continue;
                     case 2:
-                        recipe.QuantitiesReset();
+                        recipe.QuantitiesReset();                       
                         continue;
                         
                     case 3:
+                        
                         recipe.DisplayRecipe();
                         continue;
                     case 4:
                         recipe.Clear();
+                        cleared = true;
                         continue;                       
                     case 5:
                         recipe.Exit();
@@ -150,12 +198,12 @@ namespace PART_1
         private int steps;
         private double quantityD;
 
-        //Creating Generic Lists
+/*        //Creating Generic Lists
         private RecipeInformation<string> recipeNameLst;
         private RecipeInformation<string> ingredientsLst;
         private RecipeInformation<string> measurementLst;
         private RecipeInformation<double> quantitiesLst;
-        private RecipeInformation<string> stepDescriptionsLst;
+        private RecipeInformation<string> stepDescriptionsLst;*/
 
         private List<Recipe> recipeLst = new List<Recipe>();
 
@@ -164,7 +212,7 @@ namespace PART_1
         // about the recipe such as ingredients, quantities and measurement.
         public void RecipeInformation(Recipe recipes)
         {
-            recipeNameLst = new RecipeInformation<string>();
+           /* recipeNameLst = new RecipeInformation<string>();*/
             
 
             Console.WriteLine("Lets make a recipe!");
@@ -172,11 +220,11 @@ namespace PART_1
             // Prompts user to enter the name they'd like to give the recipe.   
             Console.WriteLine("What would you like to name the recipe?");
             recipeName = Console.ReadLine();
-            recipeNameLst.add(recipeName); // remove
-            recipes.setRecipeName(recipeName);
+            /*recipeNameLst.add(recipeName); // remove*/
+           
             
 
-            while (recipeNameLst.getSize() == 0)
+            while (string.IsNullOrEmpty(recipeName))
             {
                 Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
                 Console.WriteLine("Field is empty! Please enter an input", Console.ForegroundColor);
@@ -185,6 +233,7 @@ namespace PART_1
                 recipeName = Console.ReadLine();
             }
 
+            recipes.setRecipeName(recipeName);
             //          -----------------------------------------------------
 
             // Prompts user to enter the number of ingredients they would like to capture.               
@@ -222,10 +271,10 @@ namespace PART_1
                 }
 
             }
-            // Initializing Lists inside the method.           
+/*            // Initializing Lists inside the method.           
             ingredientsLst = new RecipeInformation<string>();
             quantitiesLst = new RecipeInformation<double>();
-            measurementLst = new RecipeInformation<string>();
+            measurementLst = new RecipeInformation<string>();*/
 
             //          -----------------------------------------------------
 
@@ -248,7 +297,7 @@ namespace PART_1
                     ingredient = Console.ReadLine();
                 }
 
-                ingredientsLst.add(ingredient); // remove
+               /* ingredientsLst.add(ingredient); // remove*/
                 recipes.setIngredient(ingredient);
                 //--------
 
@@ -270,7 +319,7 @@ namespace PART_1
                             // -------------------------------
                         }
 
-                        quantitiesLst.add(quantityD); // remove
+                        /*quantitiesLst.add(quantityD); // remove*/
                         recipes.setQuantity(quantityD);
                         break;
 
@@ -292,9 +341,9 @@ namespace PART_1
 
                 }
 
+                
 
-
-                Console.Write("Meansurement (teaspoon, tablespoon or cup): ");  // Only accepts teaspoon, tablespoon and cup
+                Console.Write("The Meansurement (teaspoon, tablespoon or cup): ");  // Only accepts teaspoon, tablespoon and cup
                 string measurementInput = Console.ReadLine();
 
                 while (measurementInput == null        // While the user does not enter a value,
@@ -309,69 +358,86 @@ namespace PART_1
                     measurementInput = Console.ReadLine();
                 }
 
-                measurementLst.add(measurementInput); // remove
                 recipes.setMeasurement(measurementInput);
-            }
 
-            try  // --------- error handling step input -----------------
-            {
-                // Prompts the user to enter the amount of steps to take.
-                Console.WriteLine("\nEnter the number of calories: ");
-                string caloriesInput = Console.ReadLine();
-                double calories = double.Parse(caloriesInput);
 
-                recipes.setCalories(calories);
-                recipeLst.Add(recipes);
-
-                // Checks if the input is a integer and not empty.
-                if (calories <= 0)
+                try  
                 {
-                    // -------- From w3schools -------
-                    throw new ArgumentOutOfRangeException();  // Throw statement was takenfrom w3schools
-                    // -------------------------------
-                }
-
-            }
-            catch (FormatException)
-            {
-                Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
-                Console.WriteLine("Invalid input. Please enter a number.", Console.ForegroundColor);
-                Console.ResetColor(); // < -- Code taken from TutorialsPoint
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
-                Console.WriteLine("Field is empty. Please enter the number of steps", Console.ForegroundColor);
-                Console.ResetColor(); // < -- Code taken from TutorialsPoint
-            }
-
-            // Prompts user to enter the food group the ingredient belongs to.   
-            Console.WriteLine("What food group does this ingredient belong to?");
-          
-            string foodGroup;
-
-            Console.WriteLine(
-                "1) Starchy foods  [These are commonly known as Carbohydrates. These have a great source of energy and nutrients.]" 
-                + "\n2) Vegetables and fruits  [These contain alot of vitimins and minerals as well as fibre.]"
-                + "\n3) Dry beans, peas, lentils and soya  [These are low in fat being a good source of fibre, vitimins and minerals.]"
-                + "\n4) Chicken, fish, meat and eggs  [Contains a good amount of protein, vitamins and minerals.]"
-                + "\n5) Milk and dairy products  [Has alot of calcium as well as protein and vitamins.]"
-                + "\n6) Fats and oil  [These plant based fats are way healthier than saturated fats.]"
-                + "\n7) Water  [Your body constantly loses water throughout the day and night. Important to keep hydrated.]"
-                );
-
-            foodGroup = Console.ReadLine();
-            recipes.setFoodGroup(foodGroup);
+                    // Prompts the user to enter the amount of steps to take.
+                    Console.WriteLine("\nPlease enter the number of calories: ");
+                    string caloriesInput = Console.ReadLine();
+                    double calories = double.Parse(caloriesInput);
+                    
+                    
+                   
+                    if (calories <= 0)
+                    {
+                        
+                        Console.WriteLine("Calories must be greater than 0");  
+                        
+                    } else
+                    {
+                        recipes.setCalories(calories);
+                       
+                        recipes.CheckCalorieAlert();
+                       
+                        // Checks if the input is a integer and not empty.
+                    }
 
 
-                while (string.IsNullOrEmpty(foodGroup))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
-                    Console.WriteLine("Field is empty! Please enter an input", Console.ForegroundColor);
-                    Console.ResetColor(); // < -- Code taken from TutorialsPoint
+                    // Prompts user to enter the food group the ingredient belongs to.   
+                    Console.WriteLine("What food group does this ingredient belong to?");
+
+                    string foodGroup;
+
+                    Console.WriteLine(
+                        "1) Starchy foods !! [These are commonly known as Carbohydrates. These have a great source of energy and nutrients.]"
+                        + "\n2) Vegetables and fruits  [These contain alot of vitimins and minerals as well as fibre.]"
+                        + "\n3) Dry beans, peas, lentils and soya  [These are low in fat being a good source of fibre, vitimins and minerals.]"
+                        + "\n4) Chicken, fish, meat and eggs  [Contains a good amount of protein, vitamins and minerals.]"
+                        + "\n5) Milk and dairy products  [Has alot of calcium as well as protein and vitamins.]"
+                        + "\n6) Fats and oil  [These plant based fats are way healthier than saturated fats.]"
+                        + "\n7) Water  [Your body constantly loses water throughout the day and night. Important to keep hydrated.]"
+                        );
+
                     Console.WriteLine("What food group does this ingredient belong to?");
                     foodGroup = Console.ReadLine();
+                    recipes.setFoodGroup(foodGroup);
+
+
+                    while (string.IsNullOrEmpty(foodGroup))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
+                        Console.WriteLine("Field is empty! Please enter an input", Console.ForegroundColor);
+                        Console.ResetColor(); // < -- Code taken from TutorialsPoint
+                        Console.WriteLine("What food group does this ingredient belong to?");
+                        foodGroup = Console.ReadLine();
+                        recipes.setFoodGroup(foodGroup);
+                    }
+
+
+
                 }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
+                    Console.WriteLine("Invalid input. Please enter a number.", Console.ForegroundColor);
+                    Console.ResetColor(); // < -- Code taken from TutorialsPoint
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red; // < -- Code taken from TutorialsPoint
+                    Console.WriteLine("Field is empty. Please enter the number of calories", Console.ForegroundColor);
+                    Console.ResetColor(); // < -- Code taken from TutorialsPoint
+                }
+
+               
+
+
+            }
+
+
+           
         }
 
 
@@ -394,7 +460,7 @@ namespace PART_1
                     Console.WriteLine("\nEnter the number of steps: ");
                     string input = Console.ReadLine();
                     steps = int.Parse(input);
-                    stepDescriptionsLst = new RecipeInformation<string>();
+                    /*stepDescriptionsLst = new RecipeInformation<string>();*/
 
                     // Checks if the input is a integer and not empty.
                     if (steps <= 0)
@@ -444,14 +510,10 @@ namespace PART_1
                     description = Console.ReadLine().Trim();
                    
                 }
-                stepDescriptionsLst.add(description); // remove
                 recipes.setDescription(description);
                 recipeLst.Add(recipes);
 
-
             }
-
-           
 
         }
 
@@ -459,9 +521,6 @@ namespace PART_1
         //----------------------------------------------------------------------------
         // Method called ScaleRecipe which scales the recipe up or down depending
         // on the users choice.
-
-      
-
         public void ScaleRecipe()
         {
             displayRecipeNames();
@@ -476,18 +535,21 @@ namespace PART_1
         // scale before scaling up or down.
         public void QuantitiesReset()
         {
-                Console.WriteLine("Are you sure you'd like to reset the data?");
+
+            displayRecipeNames();
+            Console.WriteLine("Enter the number of the recipe you would like to reset: ");
+            int recipeChoice = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Are you sure you'd like to reset the data?");
                 Console.WriteLine("(yes) to reset.\n(no) to keep data");
                 string reset = Console.ReadLine();
 
                 if(reset.Equals("yes")) {
 
-                quantitiesLst.Reset();
-                measurementLst.Reset();
-                for (int i = 0; i < quantitiesLst.getSize(); i++)
-                {
-                    Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
-                }
+                    
+
+                    recipeLst[recipeChoice - 1].reset();
+
                 Console.WriteLine("All done!");
             } else
             {
@@ -500,26 +562,18 @@ namespace PART_1
         // Method called DisplayRecipe which displays the recipe information.
         public void DisplayRecipe()
         {
-
-            displayRecipeNames();
-            Console.WriteLine("Enter the number of the recipe you would like to view: ");
-            int recipeChoice = int.Parse(Console.ReadLine());
-
-            recipeLst[recipeChoice - 1].printRecipeValues();
-            Console.WriteLine("Total Calories: " + recipeLst[recipeChoice - 1].calculateCalories());
-
-            /*if ( < 200)
+            if (recipeLst.Count > 0)
             {
-                Console.WriteLine("This recipe is low in calories.");
+                displayRecipeNames();
+                Console.WriteLine("Enter the number of the recipe you would like to view: ");
+                int recipeChoice = int.Parse(Console.ReadLine());
+
+                recipeLst[recipeChoice - 1].printRecipeValues();
             }
-            else if (Calories <= 500)
+              else
             {
-                Console.WriteLine("This recipe has a moderate amount of calories.");
+                Console.WriteLine("There are no recipes to be displayed.");
             }
-            else
-            {
-                Console.WriteLine("This recipe is high in calories.");
-            }*/
         }
 
 
@@ -567,7 +621,7 @@ namespace PART_1
                     {
 
                         recipeLst[recipeChoice - 1].clearData();
-
+                        recipeLst.Remove(recipeLst[recipeChoice - 1]);
                         Console.ForegroundColor = ConsoleColor.DarkCyan; // < -- Code taken from TutorialsPoint
                         Console.WriteLine("Oops! Your data has been cleared.");
                         Console.ResetColor(); // < -- Code taken from TutorialsPoint

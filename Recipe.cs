@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace PART_1
 {
-    internal class Recipe
+    public class Recipe
     {
         // Initializing Lists.
-        private RecipeInformation<string> recipeNameLst;  
+        private RecipeInformation<string> recipeNameLst;
         private RecipeInformation<string> ingredientsLst;
         private RecipeInformation<double> quantitiesLst;
         private RecipeInformation<string> measurementLst;
@@ -19,7 +19,7 @@ namespace PART_1
 
         public Recipe()
         {
-            recipeNameLst = new RecipeInformation<string>();  
+            recipeNameLst = new RecipeInformation<string>();
             ingredientsLst = new RecipeInformation<string>();
             quantitiesLst = new RecipeInformation<double>();
             measurementLst = new RecipeInformation<string>();
@@ -28,7 +28,8 @@ namespace PART_1
             foodGroupLst = new RecipeInformation<string>();
         }
 
-        public void setRecipeName(string name) {
+        public void setRecipeName(string name)
+        {
             recipeNameLst.add(name);
         }
 
@@ -40,7 +41,7 @@ namespace PART_1
         {
             ingredientsLst.add(name);
         }
-       public void setQuantity(double quantity)
+        public void setQuantity(double quantity)
         {
             quantitiesLst.add(quantity);
         }
@@ -55,6 +56,11 @@ namespace PART_1
 
         public void setCalories(double calories)
         {
+            if (calories <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(calories), "Calories must be greater than 0");
+            }
+
             caloriesLst.add(calories);
         }
 
@@ -73,23 +79,81 @@ namespace PART_1
             return foodGroupLst.returnValue(0);
         }
 
-        
+
         public double calculateCalories()
         {
-            double totalCalories = 0.0;
-
-            /*foreach (var calorie in caloriesLst)
+            double totalCalories = 0;
+            for (int i = 0; i < caloriesLst.getSize(); i++)
             {
-                totalCalories += calorie;
-            }*/
-
+                totalCalories += caloriesLst.returnValue(i);
+            }
             return totalCalories;
         }
 
+        // Declaring the delegate
+        public delegate string CalorieExplanations(double totalCalories);
+
+        public string getLowCalorie(double totalCalories)
+        {
+            return "This recipe is considered low in calories.";
+        }
+
+        public string getModerateCalorie(double totalCalories)
+        {
+            return "This recipe is considered moderate calories.";
+        }
+
+        public string getHighCalorie(double totalCalories)
+        {
+            return "This recipe is considered high in calories.";
+        }
+
+        public CalorieExplanations GetCalorieExplanation(double totalCalories)
+        {
+            if (totalCalories < 200)
+            {
+                return getLowCalorie;
+            }
+            else if (totalCalories <= 500)
+            {
+                return getModerateCalorie;
+            }
+            else
+            {
+                return getHighCalorie;
+            }
+        }
+
+
+        public delegate void CalorieAlertDelegate(double totalCalories);
+
+        public void CheckCalorieAlert()
+        {
+            double totalCalories = calculateCalories();
+            if (totalCalories > 300)
+            {
+                CalorieAlertDelegate calorieAlertHandler = new CalorieAlertDelegate(DisplayCalorieAlert);
+                calorieAlertHandler(totalCalories);
+            }
+        }
+
+        private void DisplayCalorieAlert(double totalCalories)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Alert: Total calories {totalCalories} exceed 300!");
+            Console.ResetColor();
+            Console.WriteLine("Consider reducing the amount of calories within your recipe.");
+            Console.WriteLine("Excessive calorie intake can pose risks such as weight gain, obesity, " +
+                              "and increased risk of chronic diseases like diabetes and cardiovascular issues.");
+        }
 
 
         public void printRecipeValues()
         {
+
+            double totalCalories = calculateCalories();
+            CalorieExplanations explanationDelegate = GetCalorieExplanation(totalCalories);
+
             Console.WriteLine("------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta; // < -- Code taken from TutorialsPoint
             Console.WriteLine("           RECIPE: " + getRecipeName());
@@ -100,7 +164,9 @@ namespace PART_1
             {   // Displays all ingredients as well as their quantities and measurememts.     
                 Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
                 Console.WriteLine("Number of calories: " + caloriesLst.returnValue(i));
-                Console.WriteLine("Food group: " +  foodGroupLst.returnValue(i));
+                Console.WriteLine("Food group: " + foodGroupLst.returnValue(i));
+                Console.WriteLine("Total calories: " + totalCalories);
+                Console.WriteLine(explanationDelegate(totalCalories));
             }
 
             int numbering = 1; // Numbering for displaying the steps
@@ -120,20 +186,19 @@ namespace PART_1
 
         public double TablespoonToCup(double quantity, int i)
         {
-            Console.WriteLine("16 ");
             return quantitiesLst.returnValue(i) / 16;
         }
 
         public void scaling()
         {
-            
-                Console.WriteLine("Lets scale the recipe! The more the merrier.");
-                Console.WriteLine("\nEnter scaling factor (0.5, 2 or 3)");
 
-                double factor = double.Parse(Console.ReadLine());
+            Console.WriteLine("Lets scale the recipe! The more the merrier.");
+            Console.WriteLine("\nEnter scaling factor (0.5, 2 or 3)");
 
-                for (int i = 0; i < quantitiesLst.getSize(); i++)
-                {
+            double factor = double.Parse(Console.ReadLine());
+
+            for (int i = 0; i < quantitiesLst.getSize(); i++)
+            {
 
                 quantitiesLst.Update(i, quantitiesLst.returnValue(i) * factor);   // Multiplying the original values by the factor  
                                                                                   // and assigning the values to quantities.
@@ -183,6 +248,19 @@ namespace PART_1
         }
 
 
+        public void reset()
+        {
+            quantitiesLst.Reset();
+            measurementLst.Reset();
+
+            Console.WriteLine("Ingredients reset:");
+            for (int i = 0; i < quantitiesLst.getSize(); i++)
+            {
+                Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
+            }
+        }
+
+
         public void clearData()
         {
             recipeNameLst = null;
@@ -190,9 +268,12 @@ namespace PART_1
             quantitiesLst = null;       // Set all Lists to null (empty)
             measurementLst = null;
             stepDescriptionsLst = null;
-  
+
+
         }
 
+       
 
+        
     }
 }
