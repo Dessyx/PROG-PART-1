@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-=======
+
 # PART 2
 
->>>>>>> 098169618cd370c5c2ad4054c09eebb0f09b3922
 DESCRIPTION
 
 The recipe app project is a program built with C# that allows users to create and store their own recipes
@@ -74,8 +72,8 @@ FEATURES
 6: Exits the program:
 - Stops the program from running.
 
-<<<<<<< HEAD
+
 https://github.com/Dessyx/PROG-PART-1/tree/PROG-PART-2
-=======
-https://github.com/Dessyx/PROG-PART-1/tree/PROG-PART-2
->>>>>>> 098169618cd370c5c2ad4054c09eebb0f09b3922
+
+
+
