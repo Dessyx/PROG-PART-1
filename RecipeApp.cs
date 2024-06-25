@@ -32,7 +32,7 @@ namespace PART_1
 
 //-------------------------------------------------------------------------------------------------------
 //                                               RECIPE APP CLASS
-    internal class RecipeApp
+    public class RecipeApp
     {
         private RecipeMethods recipe = new RecipeMethods();
         
