@@ -25,91 +25,135 @@ namespace RecipeAPP
         public double Calories { get; private set; }
         public string FoodGroup { get; private set; }
 
-        Recipe recipes = new Recipe();
-        CreateRecipe createRecipe = new CreateRecipe();
+        public int numSteps { get; private set; }
+
+        Recipe recipe;
+       /* CreateRecipe createRecipe = new CreateRecipe();*/
+        private List<Recipe> recipeLst;
+        private int numRecipe;
+        private int ingNum;
 
         public RecipeDetails()
         {
             InitializeComponent();
+            recipeLst = null;
+            recipe = null;
+            numRecipe = 0;
+            ingNum = 0;
+            addStepsbtn.IsEnabled = false;
         }
 
-       /* private void Expander_Expanded(object sender, RoutedEventArgs e)
+        public RecipeDetails(Recipe rec, List<Recipe> recLst,int num,int ingrdnum) : this() 
         {
-            ExpanderTextBox.Text = "This is some text displayed when the expander is expanded.";
-        }*/
+            recipe = rec;
+            recipeLst = recLst;
+            numRecipe = num;
+            ingNum = ingrdnum;
+            
+        }
 
         private void SaveRecipe(object sender, RoutedEventArgs e)
         {
-            IngredientName = IngredientNameTextBox.Text;
-            string quantityInput = QuantityTextBox.Text;
-            Measurement = MeasurementTextBox.Text;
-            string caloriesInput = CaloriesTextBox.Text;
-            FoodGroup = (FoodGroupComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
-
-
-            if (string.IsNullOrWhiteSpace(IngredientName))
+            if (ingNum > 0)
             {
-                MessageBox.Show("Field is empty! Please enter an ingredient name.");
+                IngredientName = IngredientNameTextBox.Text;
+                string quantityInput = QuantityTextBox.Text;
+                Measurement = MeasurementTextBox.Text;
+                string caloriesInput = CaloriesTextBox.Text;
+                FoodGroup = (FoodGroupComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
 
-            }
 
-            if (string.IsNullOrWhiteSpace(Measurement) ||
-                (Measurement != "teaspoon" && Measurement != "tablespoon" && Measurement != "cup"))
-            {
-                MessageBox.Show("Invalid measurement. Please enter 'teaspoon', 'tablespoon', or 'cup'.");
-
-            }
-
-            if (string.IsNullOrWhiteSpace(FoodGroup))
-            {
-                MessageBox.Show("Please select a food group.");
-
-            }
-
-            try
-            {
-                Quantity = double.Parse(quantityInput);
-
-                if (Quantity <= 0)
+                if (string.IsNullOrWhiteSpace(IngredientName))
                 {
-                    throw new ArgumentOutOfRangeException();
+                    MessageBox.Show("Field is empty! Please enter an ingredient name.");
+
                 }
 
-                Calories = double.Parse(caloriesInput);
-
-                if (Calories < 0)
+                if (string.IsNullOrWhiteSpace(Measurement) ||
+                    (Measurement != "teaspoon" && Measurement != "tablespoon" && Measurement != "cup"))
                 {
-                    throw new ArgumentOutOfRangeException();
+                    MessageBox.Show("Invalid measurement. Please enter 'teaspoon', 'tablespoon', or 'cup'.");
+
                 }
 
-                this.Close();
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Invalid input. Please enter a number for the quantity.");
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                MessageBox.Show("Quantity must be greater than 0.");
-            }
+                if (string.IsNullOrWhiteSpace(FoodGroup))
+                {
+                    MessageBox.Show("Please select a food group.");
 
-            int count = createRecipe.IngredientAmount;
+                }
 
-            for (int i = 0; i < count; i++)
-            {
-                    recipes.setIngredient(IngredientName);
-                    recipes.setQuantity(Quantity);
-                    recipes.setMeasurement(Measurement);
-                    recipes.setCalories(Calories);
-                    recipes.setFoodGroup(FoodGroup);
+                try
+                {
+                    Quantity = double.Parse(quantityInput);
+
+                    if (Quantity <= 0)
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+
+                    Calories = double.Parse(caloriesInput);
+
+                    if (Calories < 0)
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+
+
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Invalid input. Please enter a number for the quantity.");
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    MessageBox.Show("Quantity must be greater than 0.");
+                }
+
+                // int count = createRecipe.IngredientAmount;
+
+                /*  for (int i = 0; i < count; i++)
+                  {
+                          recipes.setIngredient(IngredientName);
+                          recipes.setQuantity(Quantity);
+                          recipes.setMeasurement(Measurement);
+                          recipes.setCalories(Calories);
+                          recipes.setFoodGroup(FoodGroup);
+
+                          recipeLst.Add(recipes);
+                  }*/
+                recipe.setIngredient(IngredientName);
+                recipe.setQuantity(Quantity);
+                recipe.setMeasurement(Measurement);
+                recipe.setCalories(Calories);
+                recipe.setFoodGroup(FoodGroup);
+                ingNum = ingNum - 1;
+                MessageBox.Show("Ingredient Saved");
+
+                if (ingNum == 0)
+                {
+                   addStepsbtn.IsEnabled=true;
+                }
+                ClearTextboxes();
             }
+           /* recipeLst.Add(recipes);*/
+        }
 
-            
+        private void ClearTextboxes()
+        {
+            IngredientNameTextBox.Clear();
+            QuantityTextBox.Clear();
+            CaloriesTextBox.Clear();
+            MeasurementTextBox.Clear();
+            StepNumTextBox.Clear();
+
         }
 
         private void AddSteps_Click(object sender, RoutedEventArgs e)
         {
-            Steps steps = new Steps();
+
+            numSteps = int.Parse(StepNumTextBox.Text);
+
+            Steps steps = new Steps(recipe,numSteps,recipeLst,numRecipe);
             steps.Show();
         }
     }

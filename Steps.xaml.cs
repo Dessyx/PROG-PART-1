@@ -19,9 +19,58 @@ namespace RecipeAPP
     /// </summary>
     public partial class Steps : Window
     {
-        public Steps()
+
+        private string stepDescriptions {  get; set; }
+        private int numSteps;
+        private int count;
+        private Recipe recipe;
+        private int numRecipe;
+
+        Recipe recipes = new Recipe();
+        private List<Recipe> recipeLst;
+        public Steps() { 
+            InitializeComponent(); 
+            numSteps = 0;
+            count = 1;
+            recipe = null;
+            numRecipe = 0;
+        }
+       
+
+        public Steps(Recipe rec,int num,List<Recipe>recLst,int numrec): this() 
+        {        
+            recipeLst = recLst;            
+            numSteps = num; 
+            recipe = rec;
+            numRecipe = numrec;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
+            if (string.IsNullOrEmpty(StepDescriptionTextBox.Text)) {
+                MessageBox.Show("the Description must not be empty!!!");
+            }
+            else
+            {
+           
+                stepDescriptions = StepDescriptionTextBox.Text;
+                recipe.setDescription(stepDescriptions);
+                count++;
+                if (count >numSteps) {
+                    recipeLst.Add(recipe);
+                    MessageBox.Show("Steps information added successfully");
+                    numRecipe--;
+                    if (numRecipe !=0) {
+                        CreateRecipe createRecipe = new CreateRecipe(new Recipe(),numRecipe,recipeLst);
+
+                    }
+                   
+                    
+                    this.Close();
+                    
+                }
+            }
+
         }
 
 

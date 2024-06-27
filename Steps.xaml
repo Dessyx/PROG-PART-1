@@ -10,8 +10,8 @@
         <Label Content="Steps" HorizontalAlignment="Left" Height="40" Margin="217,10,0,0" VerticalAlignment="Top" Width="158" Foreground="#FFFF34C9" FontWeight="Bold" FontFamily="Forte" FontSize="24"/>
         <Label Content="Add steps for the user to follow." HorizontalAlignment="Left" Height="34" Margin="156,50,0,0" VerticalAlignment="Top" Width="200"/>
         <Label Content="Step" HorizontalAlignment="Left" Height="35" Margin="109,89,0,0" VerticalAlignment="Top" Width="91" FontWeight="Bold"/>
-        <TextBox x:Name="RecipeNameTextBox" Margin="156,95,136,59" BorderBrush="Black"/>
-        <Button Content="Add" HorizontalAlignment="Left" Height="21" Margin="375,95,0,0" VerticalAlignment="Top" Width="69"/>
+        <TextBox x:Name="StepDescriptionTextBox" Margin="156,95,136,59" BorderBrush="Black"/>
+        <Button Content="Add" HorizontalAlignment="Left" Height="21" Margin="375,95,0,0" VerticalAlignment="Top" Width="69" Click="Button_Click"/>
 
     </Grid>
 </Window>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Create Recipe" Height="234" Width="464">
     <Grid Margin="0,0,-250,2">
-        <Label Content="Create a Recipe" HorizontalAlignment="Left" Height="32" Margin="21,21,0,0" VerticalAlignment="Top" Width="225" FontWeight="Bold" FontSize="16"/>
+        <Label Name="numRecipelbl" Content="Create Recipe" HorizontalAlignment="Left" Height="32" Margin="21,21,0,0" VerticalAlignment="Top" Width="225" FontWeight="Bold" FontSize="16"/>
         <Label Content="Recipe Name:" HorizontalAlignment="Left" Height="29" Margin="21,77,0,0" VerticalAlignment="Top" Width="94"/>
         <TextBox x:Name="RecipeNameTextBox" Margin="189,77,333,0" Height="26" VerticalAlignment="Top"/>
         <Label Content="Number of ingredients:" HorizontalAlignment="Left" Height="30" Margin="21,122,0,0" VerticalAlignment="Top" Width="144"/>

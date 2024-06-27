@@ -19,15 +19,35 @@ namespace RecipeAPP
     /// </summary>
     public partial class CreateRecipe : Window
     {
-        public string RecipeName { get; private set; }
+        private int numRecipes;
+        private int count;
+        private Recipe recipe;
+        private int ingrednum;
+
+        public string RecipeName { get; private set; }       
         public int IngredientAmount { get; private set; }
 
+        private List<Recipe> recipeLst;
         Recipe recipes;
         public CreateRecipe()
         {
             InitializeComponent();
+            numRecipes = 0;
+            count = 1;
+            recipe = null;
             recipes = new Recipe();
+            recipeLst = null;
+            ingrednum = 0;
         }
+
+        public CreateRecipe(Recipe recipes, int num, List<Recipe> recLst) : this()
+        {
+            this.numRecipes = num;
+            recipe = recipes;
+            recipeLst = recLst;
+        }
+
+
 
         private void AddIngredients_Click(object sender, RoutedEventArgs e)
         {
@@ -40,20 +60,24 @@ namespace RecipeAPP
                     throw new ArgumentException("Recipe name cannot be empty.");
                 }
 
-                recipes.setRecipeName(RecipeName);
+                recipe.setRecipeName(RecipeName);
 
                 IngredientAmount = int.Parse(NumberIngredientsText.Text);
+                ingrednum = int.Parse(NumberIngredientsText.Text);
 
                 if (IngredientAmount <= 0)
                 {
                     throw new ArgumentOutOfRangeException();
                 }
 
-                RecipeDetails recipeDetails = new RecipeDetails();
+               // recipeLst.Add(recipe);
+                count++;
+                numRecipelbl.Content = "Create Recipe " + count.ToString();
+                RecipeNameTextBox.Clear();
+                NumberIngredientsText.Clear();
+                RecipeDetails recipeDetails = new RecipeDetails(recipe, recipeLst,numRecipes,ingrednum);
                 recipeDetails.Show();
-
-
-                Close();
+                
             }
             catch (FormatException)
             {

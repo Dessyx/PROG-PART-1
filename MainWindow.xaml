@@ -20,12 +20,46 @@
                     <TextBox x:Name="RecipeNumTextBox" HorizontalAlignment="Left" Height="22" Margin="398,206,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Display a recipe" FontWeight="Bold">
+            <TabItem Header="Display a recipe" FontWeight="Bold" Height="22" Margin="-2,-2,-2,0" VerticalAlignment="Top">
                 <Grid Background="#FFE5E5E5">
                     <Label Content="Display Recipe" HorizontalAlignment="Center" Height="41" Margin="0,20,0,0" VerticalAlignment="Top" Width="181" FontSize="22" FontFamily="Forte" FontWeight="Bold"/>
-                    <TextBox HorizontalAlignment="Left" Height="145" Margin="26,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="489"/>
-                    <Label Content="Choose a recipe to display:" HorizontalAlignment="Left" Height="30" Margin="26,115,0,0" VerticalAlignment="Top" Width="189"/>
-                    <TextBox HorizontalAlignment="Left" Height="22" Margin="196,119,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35"/>
+                    <TextBox Name="recipeDisplaytxt" HorizontalAlignment="Left" Height="187" Margin="26,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" TextChanged="TextBox_TextChanged"/>
+                    <Label Content="Choose a recipe to display:" HorizontalAlignment="Left" Height="30" Margin="26,73,0,0" VerticalAlignment="Top" Width="189"/>
+                    <TextBox HorizontalAlignment="Left" Height="22" Margin="215,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35"/>
+                    <Label Content="Steps" HorizontalAlignment="Left" Height="31" Margin="447,77,0,0" VerticalAlignment="Top" Width="66"/>
+                    <TextBox HorizontalAlignment="Left" Height="128" Margin="346,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="316"/>
+                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,116,0,0" VerticalAlignment="Top" Width="17"/>
+                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,137,0,0" VerticalAlignment="Top" Width="17"/>
+                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,158,0,0" VerticalAlignment="Top" Width="17"/>
+                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,179,0,0" VerticalAlignment="Top" Width="17"/>
+                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,202,0,0" VerticalAlignment="Top" Width="17"/>
+                    <Button Content="Show steps" HorizontalAlignment="Left" Height="29" Margin="366,266,0,0" VerticalAlignment="Top" Width="185"/>
+                    <Button Content="Show recipes" HorizontalAlignment="Left" Height="22" Margin="49,51,0,0" VerticalAlignment="Top" Width="130" Click="Button_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Filter Recipes" FontWeight="Bold">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="95*"/>
+                        <ColumnDefinition Width="679*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Filter Recipes" HorizontalAlignment="Left" Height="49" Margin="204,23,0,0" VerticalAlignment="Top" Width="212" Grid.Column="1" FontFamily="Forte" FontSize="24"/>
+                    <Label Content="Ingredient" HorizontalAlignment="Left" Height="29" Margin="18,87,0,0" VerticalAlignment="Top" Width="77"/>
+                    <TextBox Name="IngredientFilterTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="10,92,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="115"/>
+                    <Label Grid.Column="1" Content="Food group" HorizontalAlignment="Left" Height="33" Margin="157,87,0,0" VerticalAlignment="Top" Width="104"/>
+                    <ComboBox Name="FoodGroupFilterComboBox" Grid.Column="1" HorizontalAlignment="Left" Margin="250,91,0,0" VerticalAlignment="Top" Width="120">
+                        <ComboBoxItem Content="Starchy foods"/>
+                        <ComboBoxItem Content="Vegetables and fruits"/>
+                        <ComboBoxItem Content="Dry beans, peas, lentils and soya"/>
+                        <ComboBoxItem Content="Chicken, fish, meat and eggs"/>
+                        <ComboBoxItem Content="Milk and dairy products"/>
+                        <ComboBoxItem Content="Fats and oil"/>
+                        <ComboBoxItem Content="Water"/>
+                    </ComboBox>
+                    <Label Grid.Column="1" Content="Max Calories" HorizontalAlignment="Left" Height="23" Margin="415,88,0,0" VerticalAlignment="Top" Width="84"/>
+                    <TextBox Name="MaxCaloriesFilterTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="516,92,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="141" Margin="8,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="579"/>
+                    <Button Grid.Column="1" Content="Filter" HorizontalAlignment="Left" Height="27" Margin="209,125,0,0" VerticalAlignment="Top" Width="178" BorderBrush="#FF04080A" Background="#FF5EC8FF" Click="Filter_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Exit" FontWeight="Bold">
@@ -36,5 +70,6 @@
 
 
         </TabControl>
+        <ComboBox HorizontalAlignment="Left" Margin="945,160,0,0" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>
