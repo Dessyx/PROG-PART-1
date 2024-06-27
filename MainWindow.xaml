@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecipeAPP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="336" Width="800">
+        Title="MainWindow" Height="363" Width="800">
     <Window.Resources>
 
     </Window.Resources>
@@ -17,13 +17,15 @@
                     <Button Content="Add Recipe" HorizontalAlignment="Center" Height="29" Margin="0,253,0,0" VerticalAlignment="Top" Width="116" Click="AddRecipe_Click" Background="#FFFF50C0"/>
                     <TextBox HorizontalAlignment="Left" Height="119" Margin="114,79,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="590"/>
                     <Label Content="How many Recipes would you like to enter? " HorizontalAlignment="Left" Height="29" Margin="130,203,0,0" VerticalAlignment="Top" Width="280"/>
-                    <TextBox HorizontalAlignment="Left" Height="22" Margin="398,206,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197"/>
+                    <TextBox x:Name="RecipeNumTextBox" HorizontalAlignment="Left" Height="22" Margin="398,206,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Display" FontWeight="Bold">
+            <TabItem Header="Display a recipe" FontWeight="Bold">
                 <Grid Background="#FFE5E5E5">
                     <Label Content="Display Recipe" HorizontalAlignment="Center" Height="41" Margin="0,20,0,0" VerticalAlignment="Top" Width="181" FontSize="22" FontFamily="Forte" FontWeight="Bold"/>
-                    <TextBox HorizontalAlignment="Left" Height="145" Margin="68,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="489"/>
+                    <TextBox HorizontalAlignment="Left" Height="145" Margin="26,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="489"/>
+                    <Label Content="Choose a recipe to display:" HorizontalAlignment="Left" Height="30" Margin="26,115,0,0" VerticalAlignment="Top" Width="189"/>
+                    <TextBox HorizontalAlignment="Left" Height="22" Margin="196,119,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Exit" FontWeight="Bold">
