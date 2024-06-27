@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-=======
-# PART 2
-
->>>>>>> 098169618cd370c5c2ad4054c09eebb0f09b3922
 DESCRIPTION
 
-The recipe app project is a program built with C# that allows users to create and store their own recipes
-as well as manipulate the data such as scaling the recipe up or down and reseting to the original values. 
+The recipe app project is a program built with WPF and C# that allows users to create and store their own recipes
+as well as manipulate the data such as scaling the recipe up or down and resetting to the original values. 
 With the new updates, the user can store the amount of calories and which food group the ingredient belongs to.
 The program is built for users who love to cook and would like to store their recipes as well as calculate 
 the correct quantities when scaling their recipe. 
@@ -27,22 +22,13 @@ GETTING STARTED
 
 
 UPDATES
-
 Based on the lecturer feedback:
 
-"Great effort. Well done! 
-1. Make sure that the units of measurement are changed back correctly, when resetting the recipe back to its original values
-2. Make sure to add a comment to state where the entry point of the program is"
+"Great effort. Well done!
+1. Include an explanation of what calories are.
+2. Add separator lines between your methods in all of your classes."
 
-In part 2, I have created a Generic Class called RecipeInformation which allows me perform functions in a much easier way, 
-making the code neater and reusible. I made a Reset method which sets the values to the oroginal values. 
-There are two lists, one called items and another called initialCopy which holds the values first entered.
-When the user wants to reset their recipe, they are prompted to choose which recipe and based on their choice,
-I call the method from the delegate class to reset the quanitity, measurement and ingredient name. 
-By doing this, i can reuse code, making the code much cleaner. 
-
-I also added a comment in the main Program class to indicate where the entry point is.
-
+I have added a explanation on what calories are as well as separator lines between my code.
 
 FEATURES
 
@@ -74,8 +60,4 @@ FEATURES
 6: Exits the program:
 - Stops the program from running.
 
-<<<<<<< HEAD
-https://github.com/Dessyx/PROG-PART-1/tree/PROG-PART-2
-=======
-https://github.com/Dessyx/PROG-PART-1/tree/PROG-PART-2
->>>>>>> 098169618cd370c5c2ad4054c09eebb0f09b3922
+https://github.com/Dessyx/PROG-PART-1/tree/PROG-PART-3
