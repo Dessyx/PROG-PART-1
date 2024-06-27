@@ -28,7 +28,7 @@ Based on the lecturer feedback:
 1. Include an explanation of what calories are.
 2. Add separator lines between your methods in all of your classes."
 
-I have added a explanation on what calories are as well as separator lines between my code.
+I have added a explanation on what calories are as well as separator lines between my code. In the information tab on the MainWindow, are explanations on food groups and the ranges of intake of calories. Providing the user with an understanding of the components, gives the user much better user experience as they do not have to do research. With this feedback, i have incremented it throughout my code by adding more explanations. It has also helped me produce much neater code with consistent separator lines. 
 
 FEATURES
 
