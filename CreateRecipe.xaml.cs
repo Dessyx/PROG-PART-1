@@ -17,38 +17,45 @@ namespace RecipeAPP
     /// <summary>
     /// Interaction logic for CreateRecipe.xaml
     /// </summary>
+    
+    // ---------------------------------------------------------
+    //                 CreateRecipe Class
     public partial class CreateRecipe : Window
     {
         private int numRecipes;
-        private int count;
+        private int count;          // Declaring variables
         private Recipe recipe;
         private int ingrednum;
 
-        public string RecipeName { get; private set; }       
+        public string RecipeName { get; private set; }       // Getters and Setters
         public int IngredientAmount { get; private set; }
 
         private List<Recipe> recipeLst;
         Recipe recipes;
+
+        //-------------------------------------------------------------
         public CreateRecipe()
         {
             InitializeComponent();
             numRecipes = 0;
             count = 1;
-            recipe = null;
+            recipe = null;                 // Initializing variables
             recipes = new Recipe();
             recipeLst = null;
             ingrednum = 0;
         }
 
-        public CreateRecipe(Recipe recipes, int num, List<Recipe> recLst) : this()
+        // ------------------------------------------------------------
+        // Passing through Recipe info
+        public CreateRecipe(Recipe recipes, int num, List<Recipe> recLst) : this()  
         {
             this.numRecipes = num;
             recipe = recipes;
             recipeLst = recLst;
         }
 
-
-
+        // ------------------------------------------------------------
+        // Adds recipe when button is clicked
         private void AddIngredients_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -60,7 +67,7 @@ namespace RecipeAPP
                     throw new ArgumentException("Recipe name cannot be empty.");
                 }
 
-                recipe.setRecipeName(RecipeName);
+                recipe.setRecipeName(RecipeName);       // Sets recipe name
 
                 IngredientAmount = int.Parse(NumberIngredientsText.Text);
                 ingrednum = int.Parse(NumberIngredientsText.Text);
@@ -73,7 +80,7 @@ namespace RecipeAPP
                // recipeLst.Add(recipe);
                 count++;
                 numRecipelbl.Content = "Create Recipe " + count.ToString();
-                RecipeNameTextBox.Clear();
+                RecipeNameTextBox.Clear();          // Clears text box for the next entry
                 NumberIngredientsText.Clear();
                 RecipeDetails recipeDetails = new RecipeDetails(recipe, recipeLst,numRecipes,ingrednum);
                 recipeDetails.Show();
@@ -93,4 +100,4 @@ namespace RecipeAPP
             }
         }
     }
-}
+} //------------------------------------------------<<< End Of File >>>-------------------------------------------------------

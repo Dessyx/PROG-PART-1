@@ -17,17 +17,23 @@ namespace RecipeAPP
     /// <summary>
     /// Interaction logic for Steps.xaml
     /// </summary>
+    
+    // --------------------------------------------------
+    //                  Steps Class
     public partial class Steps : Window
     {
 
-        private string stepDescriptions {  get; set; }
+        private string stepDescriptions {  get; set; }      // Getter and Setter
+
         private int numSteps;
-        private int count;
+        private int count;                              // Declaring variables
         private Recipe recipe;
         private int numRecipe;
 
         Recipe recipes = new Recipe();
         private List<Recipe> recipeLst;
+
+        //-------------------------------------------
         public Steps() { 
             InitializeComponent(); 
             numSteps = 0;
@@ -36,7 +42,8 @@ namespace RecipeAPP
             numRecipe = 0;
         }
        
-
+        // -------------------------------------------------------------------
+        // Sets variables to variables being passed through
         public Steps(Recipe rec,int num,List<Recipe>recLst,int numrec): this() 
         {        
             recipeLst = recLst;            
@@ -45,6 +52,8 @@ namespace RecipeAPP
             numRecipe = numrec;
         }
 
+        // -------------------------------------------------------------------
+        // Sets the descriptions for each recipe
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(StepDescriptionTextBox.Text)) {
@@ -64,15 +73,12 @@ namespace RecipeAPP
                         CreateRecipe createRecipe = new CreateRecipe(new Recipe(),numRecipe,recipeLst);
 
                     }
-                   
-                    
+                                      
                     this.Close();
                     
                 }
             }
 
         }
-
-
     }
-}
+} // --------------------------------<<< End Of File >>>--------------------------------------------

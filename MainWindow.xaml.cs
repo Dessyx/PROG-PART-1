@@ -19,27 +19,34 @@ namespace RecipeAPP
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+
+    // -----------------------------------------------------------
+    //                    MainWindow Class
     public partial class MainWindow : Window
     {
         
         private int numRecipes {  get; set; }
-        public string IngredientName { get; private set; }
+        public string IngredientName { get; private set; }          // Getters and setters
         public double Calories { get; private set; }
         public string FoodGroup { get; private set; }
 
         private string ingname;
-        private int cal;
+        private int cal;            // Declaring variables
         private string foodGrp;
 
-        private List<Recipe> recipeLst;
+        private List<Recipe> recipeLst;  
         private Recipe recipes;
+
+        //-------------------------------------------------------------
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();  // Entry point
             recipeLst = new List<Recipe>();
             recipes = new Recipe();
         }
 
+        //--------------------------------------------------------------
+        // Adds Creates a recipe when button is clicked
         private void AddRecipe_Click(object sender, RoutedEventArgs e)
         {
             if (int.TryParse(RecipeNumTextBox.Text, out int recipeCount))
@@ -67,9 +74,11 @@ namespace RecipeAPP
             }
         }
 
+        //----------------------------------------------------------------
+        // Filters the recipes by the input/criteria the user has given
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
-            ingname = IngredientFilterTextBox.Text;
+           /* ingname = IngredientFilterTextBox.Text;
             string caloriesInput = MaxCaloriesFilterTextBox.Text;
             FoodGroup = (FoodGroupComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
 
@@ -88,7 +97,7 @@ namespace RecipeAPP
             if (int.TryParse(MaxCaloriesFilterTextBox.Text, out int maxCalories))
             {
                 filteredRecipes = filteredRecipes.Where(r => int.TryParse(r.Calories, out int calories) && calories <= maxCalories);
-            }
+            }*/
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -96,12 +105,21 @@ namespace RecipeAPP
            
         }
 
+        //------------------------------------------------------------------
+        // Displays the reccipes in alphabetical order when button is cllicked
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0;i < recipeLst.Count; i++)
             {
-                recipeDisplaytxt.Text+= $"{i + 1}. {recipeLst[i].getRecipeName()}\n";
+                recipeDisplaytxt.Text+= $"{i + 1}. {recipeLst[i].getRecipeName()}\n";   // Displays the recipes in the text box
             }
         }
-    }
-}
+    } //----------------------------------------------------------------------------------------------------------------------
+      //                                  End of MainWindow Class
+
+    //          REFERENCES
+    // sweetlife, 2022. What are the different food groups? A simple explanation.. [Online] 
+    //Available at: https://sweetlife.org.za/what-are-the-different-food-groups-a-simple-explanation/
+    //[Accessed 30 May 2024].
+
+} //------------------------------------------------<<< End Of File >>> ------------------------------------------------------
