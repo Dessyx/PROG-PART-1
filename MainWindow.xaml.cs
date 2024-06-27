@@ -107,12 +107,17 @@ namespace RecipeAPP
 
         //------------------------------------------------------------------
         // Displays the reccipes in alphabetical order when button is cllicked
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ShowRecipes_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0;i < recipeLst.Count; i++)
             {
                 recipeDisplaytxt.Text+= $"{i + 1}. {recipeLst[i].getRecipeName()}\n";   // Displays the recipes in the text box
             }
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     } //----------------------------------------------------------------------------------------------------------------------
       //                                  End of MainWindow Class

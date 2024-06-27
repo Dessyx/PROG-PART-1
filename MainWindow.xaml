@@ -33,8 +33,8 @@
                     <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,158,0,0" VerticalAlignment="Top" Width="17"/>
                     <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,179,0,0" VerticalAlignment="Top" Width="17"/>
                     <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,202,0,0" VerticalAlignment="Top" Width="17"/>
-                    <Button Content="Show steps" HorizontalAlignment="Left" Height="29" Margin="366,266,0,0" VerticalAlignment="Top" Width="185"/>
-                    <Button Content="Show recipes" HorizontalAlignment="Left" Height="22" Margin="49,51,0,0" VerticalAlignment="Top" Width="130" Click="Button_Click"/>
+                    <Button Content="Show steps" HorizontalAlignment="Left" Height="29" Margin="412,251,0,0" VerticalAlignment="Top" Width="184" Background="#FFB9FF76"/>
+                    <Button Content="Show recipes" HorizontalAlignment="Left" Height="22" Margin="49,51,0,0" VerticalAlignment="Top" Width="130" Click="ShowRecipes_Click" Background="#FFBFF889"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Filter Recipes" FontWeight="Bold">
@@ -62,8 +62,29 @@
                     <Button Grid.Column="1" Content="Filter" HorizontalAlignment="Left" Height="27" Margin="209,125,0,0" VerticalAlignment="Top" Width="178" BorderBrush="#FF04080A" Background="#FF5EC8FF" Click="Filter_Click"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="Information" FontWeight="Bold">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox HorizontalAlignment="Center" Height="183" Header="Food Groups" Margin="0,14,0,0" VerticalAlignment="Top" Width="710" BorderBrush="#FFAC44B8"/>
+                    <!--Information taken from sweetlife.com (sweetlife, 2022)-->
+                    <Label Content="1) Starchy foods [These are commonly known as Carbohydrates. These have a great source of energy and nutrients.]" HorizontalAlignment="Left" Height="45" Margin="52,35,0,0" VerticalAlignment="Top" Width="690" FontWeight="Normal"/>
+                    <Label Content="2) Vegetables and fruits  [These contain alot of vitimins and minerals as well as fibre.]" HorizontalAlignment="Left" Height="46" Margin="52,57,0,0" VerticalAlignment="Top" Width="690" FontWeight="Normal"/>
+                    <Label Content="3) Dry beans, peas, lentils and soya  [These are low in fat being a good source of fibre, vitimins and minerals.]" HorizontalAlignment="Left" Height="46" Margin="52,75,0,0" VerticalAlignment="Top" Width="690" FontWeight="Normal"/>
+                    <Label Content="4) Chicken, fish, meat and eggs  [Contains a good amount of protein, vitamins and minerals.]" HorizontalAlignment="Left" Height="46" Margin="52,93,0,0" VerticalAlignment="Top" Width="690" FontWeight="Normal"/>
+                    <Label Content="5) Milk and dairy products  [Has alot of calcium as well as protein and vitamins.]" HorizontalAlignment="Left" Height="46" Margin="52,113,0,0" VerticalAlignment="Top" Width="690" FontWeight="Normal"/>
+                    <Label Content="6) Fats and oil  [These plant based fats are way healthier than saturated fats.]" HorizontalAlignment="Left" Height="46" Margin="52,131,0,0" VerticalAlignment="Top" Width="690" FontWeight="Normal"/>
+                    <Label Content="7) Water  [Your body constantly loses water throughout the day and night. Important to keep hydrated.]" HorizontalAlignment="Left" Height="46" Margin="52,151,0,0" VerticalAlignment="Top" Width="690" FontWeight="Normal"/>
+                    <GroupBox HorizontalAlignment="Center" Height="74" Header="Calories" Margin="0,202,0,0" VerticalAlignment="Top" Width="424" BorderBrush="#FF9D44B8"/>
+                    <Label Content="Less than 200: Low in calories (Snack)" HorizontalAlignment="Center" Height="43" Margin="0,217,0,0" VerticalAlignment="Top" Width="403" FontWeight="Normal"/>
+                    <Label Content="Between 200 and 500: Moderate in calories (Meal)" HorizontalAlignment="Center" Height="43" Margin="0,233,0,0" VerticalAlignment="Top" Width="401" FontWeight="Normal"/>
+                    <Label Content="Higher than 500: High in calories (Feast)" HorizontalAlignment="Center" Height="43" Margin="0,246,0,0" VerticalAlignment="Top" Width="402" FontWeight="Normal"/>
+                </Grid>
+            </TabItem>
             <TabItem Header="Exit" FontWeight="Bold">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="AWWWW SAD TO SEE YOU GO :(" HorizontalAlignment="Center" Height="35" Margin="0,34,0,0" VerticalAlignment="Top" Width="310" Foreground="#FFBA51FF" FontSize="18"/>
+                    <Button Content="Exit" HorizontalAlignment="Center" Height="31" Margin="0,220,0,0" VerticalAlignment="Top" Width="162" Foreground="Black" BorderBrush="#FF54227C" Background="#FFE8B6F9" Click="Exit_Click"/>
+                </Grid>
+
             </TabItem>
             <Button Content="Button" Height="48" Width="160"/>
 
