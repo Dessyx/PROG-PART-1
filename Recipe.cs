@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PART_1
+namespace RecipeAPP
 {
     public class Recipe
     {
@@ -165,9 +165,9 @@ namespace PART_1
                 Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
                 Console.WriteLine("Number of calories: " + caloriesLst.returnValue(i));
                 Console.WriteLine("Food group: " + foodGroupLst.returnValue(i));
-                
+
                 Console.WriteLine(explanationDelegate(totalCalories) + "\n");
-                
+
             }
             Console.WriteLine("Total calories: " + totalCalories);
 
@@ -275,11 +275,8 @@ namespace PART_1
 
         }
 
-       
 
-        
+
+
     }
 }
-//------------------------------------------<<< End Of File >>>-------------------------------------------------------
-
-

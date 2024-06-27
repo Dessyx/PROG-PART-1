@@ -1,0 +1,17 @@
+﻿<Window x:Class="RecipeAPP.Steps"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RecipeAPP"
+        mc:Ignorable="d"
+        Title="Steps" Height="202" Width="502">
+    <Grid Margin="0,0,10,11">
+        <Label Content="Steps" HorizontalAlignment="Left" Height="40" Margin="217,10,0,0" VerticalAlignment="Top" Width="158" Foreground="#FFFF34C9" FontWeight="Bold" FontFamily="Forte" FontSize="24"/>
+        <Label Content="Add steps for the user to follow." HorizontalAlignment="Left" Height="34" Margin="156,50,0,0" VerticalAlignment="Top" Width="200"/>
+        <Label Content="Step" HorizontalAlignment="Left" Height="35" Margin="109,89,0,0" VerticalAlignment="Top" Width="91" FontWeight="Bold"/>
+        <TextBox x:Name="RecipeNameTextBox" Margin="156,95,136,59" BorderBrush="Black"/>
+        <Button Content="Add" HorizontalAlignment="Left" Height="21" Margin="375,95,0,0" VerticalAlignment="Top" Width="69"/>
+
+    </Grid>
+</Window>

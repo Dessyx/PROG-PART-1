@@ -1,0 +1,38 @@
+﻿<Window x:Class="RecipeAPP.RecipeDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RecipeAPP"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="760">
+    <Grid Background="#FFFFACDD">
+        <Label Content="Enter Recipe Details" HorizontalAlignment="Left" Height="65" Margin="225,10,0,0" VerticalAlignment="Top" Width="301" FontFamily="Script MT Bold" FontWeight="Bold" FontSize="36" ScrollViewer.CanContentScroll="True"/>
+        <Label Content="Ingredient Name:" HorizontalAlignment="Left" Height="29" Margin="23,94,0,0" VerticalAlignment="Top" Width="135"/>
+        <TextBox x:Name="IngredientNameTextBox" Margin="142,94,84,311" BorderBrush="Black"/>
+        <Label Content="Quantity:" HorizontalAlignment="Left" Height="29" Margin="23,155,0,0" VerticalAlignment="Top" Width="135"/>
+        <TextBox x:Name="QuantityTextBox" Margin="142,159,425,251" BorderBrush="Black"/>
+        <Label Content="Measurement:" HorizontalAlignment="Left" Height="29" Margin="23,214,0,0" VerticalAlignment="Top" Width="135"/>
+        <TextBox x:Name="MeasurementTextBox" Margin="142,217,425,192" BorderBrush="Black"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="155,197,0,0" TextWrapping="Wrap" Text="(Teaspoon / Tablespoon / Cup)" VerticalAlignment="Top" Width="186"/>
+        <Label Content="Calories:" HorizontalAlignment="Left" Height="28" Margin="390,153,0,0" VerticalAlignment="Top" Width="135" FontSize="14"/>
+        <TextBox x:Name="CaloriesTextBox" Margin="471,157,84,251" BorderBrush="Black"/>
+        <Label Content="Select Food Group:" HorizontalAlignment="Left" Height="30" Margin="516,189,0,0" VerticalAlignment="Top" Width="116"/>
+        <ComboBox x:Name="FoodGroupComboBox" Margin="472,217,84,193">
+            <ComboBoxItem Content="Starchy foods"/>
+            <ComboBoxItem Content="Vegetables and fruits"/>
+            <ComboBoxItem Content="Dry beans, peas, lentils and soya"/>
+            <ComboBoxItem Content="Chicken, fish, meat and eggs"/>
+            <ComboBoxItem Content="Milk and dairy products"/>
+            <ComboBoxItem Content="Fats and oil"/>
+            <ComboBoxItem Content="Water"/>
+        </ComboBox>
+        <Button Content="Save Recipe" HorizontalAlignment="Left" Height="31" Margin="249,275,0,0" VerticalAlignment="Top" Width="249" Click="SaveRecipe" Foreground="#FFFF2BA9" FontWeight="Bold" FontSize="14" Background="Black"/>
+        <Label Content="How many Steps does this Recipe require?" HorizontalAlignment="Left" Height="28" Margin="249,324,0,0" VerticalAlignment="Top" Width="249"/>
+        <Label Content="Steps" HorizontalAlignment="Left" Height="24" Margin="338,357,0,0" VerticalAlignment="Top" Width="58" FontWeight="Bold"/>
+        <TextBox x:Name="StepNumTextBox" Margin="384,359,351,53" BorderBrush="Black"/>
+        <Button Content="Add Steps" HorizontalAlignment="Left" Height="28" Margin="294,398,0,0" VerticalAlignment="Top" Width="147" Background="#FFCECECE" Click="AddSteps_Click"/>
+
+    </Grid>
+</Window>
+

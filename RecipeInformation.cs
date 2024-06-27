@@ -4,17 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PART_1
+namespace RecipeAPP
 {
-    // Generic Class
-    internal class RecipeInformation <T>
+    internal class RecipeInformation<T>
     {
-
         private List<T> items;
         private List<T> initialCopy;
 
-        public RecipeInformation() {
-            
+        public RecipeInformation()
+        {
             items = new List<T>();
             initialCopy = new List<T>();
         }
@@ -25,13 +23,14 @@ namespace PART_1
             initialCopy.Add(item);
         }
 
-        public void Update( int index, T newitem)  // updates to the new item
+        public void Update(int index, T newitem)  // updates to the new item
         {
             items[index] = newitem;
         }
 
-        public void Reset() {  // resets the item to the old value
-            
+        public void Reset()
+        {  // resets the item to the old value
+
             for (int i = 0; i < items.Count; i++)
             {
                 items[i] = initialCopy[i];
@@ -48,19 +47,20 @@ namespace PART_1
             {
                 Console.WriteLine("The item is not found in the list.");
             }
-           
+
         }
 
-        public void display()  
+        public void display()
         {
-            if(items.Count == 0)
+            if (items.Count == 0)
             {
                 Console.WriteLine("The list is empty.");
-            } else
+            }
+            else
             {
                 foreach (T item in items)
                 {
-                    Console.WriteLine(item);                 
+                    Console.WriteLine(item);
                 }
             }
         }
@@ -85,4 +85,3 @@ namespace PART_1
 
     }
 }
-//------------------------------------------<<< End Of File >>>-------------------------------------------------------
