@@ -5,20 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecipeAPP"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="760">
-    <Grid Background="#FFFFACDD" Margin="0,0,0,-16">
+        Title="Recipe Details" Height="484" Width="760">
+    <Grid Background="#FFFFACDD" Margin="0,0,0,0">
         <Label Content="Enter Recipe Details" HorizontalAlignment="Left" Height="65" Margin="225,10,0,0" VerticalAlignment="Top" Width="301" FontFamily="Script MT Bold" FontWeight="Bold" FontSize="36" ScrollViewer.CanContentScroll="True"/>
+
         <Label Content="Ingredient Name:" HorizontalAlignment="Left" Height="29" Margin="23,94,0,0" VerticalAlignment="Top" Width="135"/>
-        <TextBox x:Name="IngredientNameTextBox" Margin="142,94,84,311" BorderBrush="Black"/>
+        <TextBox x:Name="IngredientNameTextBox" HorizontalAlignment="Left" Height="24" Margin="142,99,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="534" BorderBrush="Black"/>
+
         <Label Content="Quantity:" HorizontalAlignment="Left" Height="29" Margin="23,155,0,0" VerticalAlignment="Top" Width="135"/>
-        <TextBox x:Name="QuantityTextBox" Margin="142,159,425,251" BorderBrush="Black"/>
+        <TextBox x:Name="QuantityTextBox" HorizontalAlignment="Left" Height="29" Margin="142,155,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="226" BorderBrush="Black"/>
+
         <Label Content="Measurement:" HorizontalAlignment="Left" Height="29" Margin="23,214,0,0" VerticalAlignment="Top" Width="135"/>
-        <TextBox x:Name="MeasurementTextBox" Margin="142,217,425,192" BorderBrush="Black"/>
+        <TextBox x:Name="MeasurementTextBox" HorizontalAlignment="Left" Height="24" Margin="142,227,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" BorderBrush="Black"/>
         <TextBlock HorizontalAlignment="Left" Height="20" Margin="155,197,0,0" TextWrapping="Wrap" Text="(Teaspoon / Tablespoon / Cup)" VerticalAlignment="Top" Width="186"/>
+
         <Label Content="Calories:" HorizontalAlignment="Left" Height="28" Margin="390,153,0,0" VerticalAlignment="Top" Width="135" FontSize="14"/>
-        <TextBox x:Name="CaloriesTextBox" Margin="471,157,84,251" BorderBrush="Black"/>
+        <TextBox x:Name="CaloriesTextBox" HorizontalAlignment="Left" Height="31" Margin="472,154,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" BorderBrush="#FF030305"/>
+
         <Label Content="Select Food Group:" HorizontalAlignment="Left" Height="30" Margin="516,189,0,0" VerticalAlignment="Top" Width="116"/>
-        <ComboBox x:Name="FoodGroupComboBox" Margin="472,217,84,193">
+        <ComboBox x:Name="FoodGroupComboBox" HorizontalAlignment="Left" Height="29" Margin="472,222,0,0" VerticalAlignment="Top" Width="224">
             <ComboBoxItem Content="Starchy foods"/>
             <ComboBoxItem Content="Vegetables and fruits"/>
             <ComboBoxItem Content="Dry beans, peas, lentils and soya"/>
@@ -28,9 +33,11 @@
             <ComboBoxItem Content="Water"/>
         </ComboBox>
         <Button Content="Save Recipe" HorizontalAlignment="Left" Height="31" Margin="249,275,0,0" VerticalAlignment="Top" Width="249" Click="SaveRecipe" Foreground="#FFFF2BA9" FontWeight="Bold" FontSize="14" Background="Black"/>
+
         <Label Content="How many Steps does this Recipe require?" HorizontalAlignment="Left" Height="28" Margin="249,324,0,0" VerticalAlignment="Top" Width="249"/>
         <Label Content="Steps" HorizontalAlignment="Left" Height="24" Margin="338,357,0,0" VerticalAlignment="Top" Width="58" FontWeight="Bold"/>
-        <TextBox x:Name="StepNumTextBox" Margin="384,359,351,53" BorderBrush="Black"/>
+        <TextBox x:Name="StepNumTextBox" HorizontalAlignment="Left" Height="29" Margin="396,357,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="41" BorderBrush="Black"/>
+
         <Button Name="addStepsbtn" Content="Add Steps" HorizontalAlignment="Left" Height="28" Margin="294,398,0,0" VerticalAlignment="Top" Width="147" Background="#FFCECECE" Click="AddSteps_Click"/>
 
     </Grid>

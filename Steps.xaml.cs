@@ -60,18 +60,20 @@ namespace RecipeAPP
                 MessageBox.Show("the Description must not be empty!!!");
             }
             else
-            {
-           
+            {           
                 stepDescriptions = StepDescriptionTextBox.Text;
                 recipe.setDescription(stepDescriptions);
+                StepDescriptionTextBox.Clear();
+
                 count++;
                 if (count >numSteps) {
-                    recipeLst.Add(recipe);
+                    recipeLst.Add(recipe);                  
                     MessageBox.Show("Steps information added successfully");
+                    
                     numRecipe--;
                     if (numRecipe !=0) {
-                        CreateRecipe createRecipe = new CreateRecipe(new Recipe(),numRecipe,recipeLst);
-
+                        CreateRecipe createRecipe = new CreateRecipe(new Recipe(),numRecipe,recipeLst,true);
+                        createRecipe.Show();
                     }
                                       
                     this.Close();

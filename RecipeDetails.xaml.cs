@@ -153,7 +153,7 @@ namespace RecipeAPP
             CaloriesTextBox.Clear();            // Clears text boxes for the next input
             MeasurementTextBox.Clear();
             StepNumTextBox.Clear();
-
+            FoodGroupComboBox.SelectedItem = null;
         }
 
         //----------------------------------------------------
@@ -164,6 +164,9 @@ namespace RecipeAPP
 
             Steps steps = new Steps(recipe,numSteps,recipeLst,numRecipe);  // Passes data through
             steps.Show();
+            this.Close();
         }
+
+
     }
 } // ---------------------------------------------<<< End Of File >>>------------------------------------------------

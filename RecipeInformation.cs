@@ -6,28 +6,35 @@ using System.Threading.Tasks;
 
 namespace RecipeAPP
 {
+    //------------------------------------------------------------
+    //                  Recipe Information Class
     internal class RecipeInformation<T>
     {
         private List<T> items;
         private List<T> initialCopy;
 
+        //-------------------------------------
+        //Default instructor
         public RecipeInformation()
         {
             items = new List<T>();
             initialCopy = new List<T>();
         }
 
+        //-------------------------------------
         public void add(T item)  // adds an item
         {
             items.Add(item);
             initialCopy.Add(item);
         }
 
+        //-------------------------------------
         public void Update(int index, T newitem)  // updates to the new item
         {
             items[index] = newitem;
         }
 
+        //-------------------------------------
         public void Reset()
         {  // resets the item to the old value
 
@@ -37,6 +44,7 @@ namespace RecipeAPP
             }
         }
 
+        //-------------------------------------
         public void remove(T item)  // removes the item form the list
         {
             if (items.Contains(item))
@@ -50,6 +58,7 @@ namespace RecipeAPP
 
         }
 
+        //--------------------------------------
         public void display()
         {
             if (items.Count == 0)
@@ -65,23 +74,30 @@ namespace RecipeAPP
             }
         }
 
+        //--------------------------------------
         public T returnValue(int index)  // returns the value at the index
         {
             return items[index];
         }
 
-
+        //--------------------------------------
         public T returnCopyValue(int index)  // returns the original value
         {
             return initialCopy[index];
         }
 
+        //--------------------------------------
         public int getSize()  // gets the size of the array
         {
             return items.Count;
 
         }
 
+        //--------------------------------------
+        public List<T> getItems()
+        {
+            return items;
+        }
 
     }
-}
+} //-------------------------<<< End Of File >>>---------------------------

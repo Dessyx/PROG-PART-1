@@ -47,11 +47,15 @@ namespace RecipeAPP
 
         // ------------------------------------------------------------
         // Passing through Recipe info
-        public CreateRecipe(Recipe recipes, int num, List<Recipe> recLst) : this()  
+        public CreateRecipe(Recipe recipes, int num, List<Recipe> recLst,bool another) : this()  
         {
             this.numRecipes = num;
             recipe = recipes;
             recipeLst = recLst;
+            if (another)
+            {
+                numRecipelbl.Content = "Create another Recipe  ";
+            }
         }
 
         // ------------------------------------------------------------
@@ -79,11 +83,12 @@ namespace RecipeAPP
 
                // recipeLst.Add(recipe);
                 count++;
-                numRecipelbl.Content = "Create Recipe " + count.ToString();
+                numRecipelbl.Content = "Create another Recipe  ";
                 RecipeNameTextBox.Clear();          // Clears text box for the next entry
                 NumberIngredientsText.Clear();
                 RecipeDetails recipeDetails = new RecipeDetails(recipe, recipeLst,numRecipes,ingrednum);
                 recipeDetails.Show();
+                this.Close();
                 
             }
             catch (FormatException)

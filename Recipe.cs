@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RecipeAPP
 {
+    //-------------------------------------------------------------------------
+    //                          Recipe Class
     public class Recipe
     {
         // Initializing Lists.
+        public bool IsChecked { get; set; }
         private RecipeInformation<string> recipeNameLst;  // Generic lists
         private RecipeInformation<string> ingredientsLst;
         private RecipeInformation<double> quantitiesLst;
@@ -17,6 +21,7 @@ namespace RecipeAPP
         private RecipeInformation<double> caloriesLst;
         private RecipeInformation<string> foodGroupLst;
 
+        //---------------------------------------------------
         public Recipe()
         {
             recipeNameLst = new RecipeInformation<string>();
@@ -28,32 +33,55 @@ namespace RecipeAPP
             foodGroupLst = new RecipeInformation<string>();
         }
 
+
+        //-----------------------------------------------------
+        //   Getters and setters
         public void setRecipeName(string name)  // Sets recipe names
         {
             recipeNameLst.add(name);
         }
 
+        //-----------------------------------------------------
         public string getRecipeName() // gets recipe names
         {
             return recipeNameLst.returnValue(0);
         }
+
+        //-----------------------------------------------------
         public void setIngredient(string name) // sets ingredient names
         {
             ingredientsLst.add(name);
         }
+
+        //-----------------------------------------------------
+        public List<string> getIngredient()
+        {
+            return ingredientsLst.getItems();
+        }
+
+        //-----------------------------------------------------
         public void setQuantity(double quantity) // sets quantities
         {
             quantitiesLst.add(quantity);
         }
+
+        //-----------------------------------------------------
         public void setMeasurement(string measurement)  // sets measurement
         {
             measurementLst.add(measurement);
         }
+
+        //-----------------------------------------------------
         public void setDescription(string description)  //sets description of the steps
         {
             stepDescriptionsLst.add(description);
         }
+        public List<string> getStepsDescription()
+        {
+            return stepDescriptionsLst.getItems();
+        }
 
+        //-----------------------------------------------------
         public void setCalories(double calories)  // sets the calories
         {
             if (calories <= 0)
@@ -64,23 +92,27 @@ namespace RecipeAPP
             caloriesLst.add(calories);
         }
 
+        //-----------------------------------------------------
         public double getCalories()
         {
             return caloriesLst.returnValue(0);
         }
 
+        //-----------------------------------------------------
         public void setFoodGroup(string group)  // sets the food group
         {
             foodGroupLst.add(group);
         }
 
+        //-----------------------------------------------------
         public string getFoodGroup()
         {
             return foodGroupLst.returnValue(0);
         }
 
-
-        public double calculateCalories()  // calculates the total calories
+        //-----------------------------------------------
+        // calculates the total calories
+        public double calculateCalories() 
         {
             double totalCalories = 0;
             for (int i = 0; i < caloriesLst.getSize(); i++)
@@ -90,6 +122,7 @@ namespace RecipeAPP
             return totalCalories;
         }
 
+        //-------------------------------------------------
         // Declaring the delegate
         public delegate string CalorieExplanations(double totalCalories);
 
@@ -108,7 +141,9 @@ namespace RecipeAPP
             return "This recipe is considered high in calories.";
         }
 
-        public CalorieExplanations GetCalorieExplanation(double totalCalories) // displays the info based on calorie amount
+        //-----------------------------------------------
+        // displays the info based on calorie amount
+        public CalorieExplanations GetCalorieExplanation(double totalCalories) 
         {
             if (totalCalories < 200)
             {
@@ -124,10 +159,12 @@ namespace RecipeAPP
             }
         }
 
-
+        //---------------------------------------------------
         public delegate void CalorieAlertDelegate(double totalCalories);  // delcaring delegate
 
-        public void CheckCalorieAlert()  // warns the user if the calories excede 300
+        //---------------------------------------------------
+        // warns the user if the calories excede 300
+        public void CheckCalorieAlert()  
         {
             double totalCalories = calculateCalories();
             if (totalCalories > 300)
@@ -137,6 +174,8 @@ namespace RecipeAPP
             }
         }
 
+        //------------------------------------------------
+        // displays alerts for calories
         private void DisplayCalorieAlert(double totalCalories)
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -147,24 +186,24 @@ namespace RecipeAPP
                               "and increased risk of chronic diseases like diabetes and cardiovascular issues.");
         }
 
-
-        public void printRecipeValues()
+        //------------------------------------------------
+        public string printRecipeValues()
         {
-
             double totalCalories = calculateCalories();
+            string display = "";
             CalorieExplanations explanationDelegate = GetCalorieExplanation(totalCalories);
 
             Console.WriteLine("------------------------------------");
             Console.ForegroundColor = ConsoleColor.Magenta; // < -- Code taken from TutorialsPoint
-            Console.WriteLine("           RECIPE: " + getRecipeName());
+           display+=  " RECIPE: " + getRecipeName()+"\n";
             Console.ResetColor(); // < -- Code taken from TutorialsPoint
             Console.WriteLine("------------------------------------");
 
             for (int i = 0; i < ingredientsLst.getSize(); i++)
             {   // Displays all ingredients as well as their quantities and measurememts.     
-                Console.WriteLine("*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i));
-                Console.WriteLine("Number of calories: " + caloriesLst.returnValue(i));
-                Console.WriteLine("Food group: " + foodGroupLst.returnValue(i));
+                display+="*  " + quantitiesLst.returnValue(i) + " " + measurementLst.returnValue(i) + " of " + ingredientsLst.returnValue(i)+"\n";
+                display +="Number of calories: " + caloriesLst.returnValue(i)+"\n";
+                display+="Food group: " + foodGroupLst.returnValue(i)+"\n";
 
                 Console.WriteLine(explanationDelegate(totalCalories) + "\n");
 
@@ -179,19 +218,23 @@ namespace RecipeAPP
                 Console.WriteLine(numbering + " - " + stepDescriptionsLst.returnValue(j)); // displays each step as well as its dscription.
                 numbering++;
             }
+            return display;
         }
+        
 
-
+        //----------------------------------------------
         public double TeaspoonToTablespoon(double quantity, int i)     // Methods that scale the quantities
         {
             return quantitiesLst.returnValue(i) / 3;
         }
 
+        //----------------------------------------------
         public double TablespoonToCup(double quantity, int i)
         {
             return quantitiesLst.returnValue(i) / 16;
         }
 
+        //----------------------------------------------
         public void scaling()
         {
 
@@ -250,7 +293,7 @@ namespace RecipeAPP
             Console.WriteLine("\nAll done!");
         }
 
-
+        //------------------------------------------
         public void reset()  //  resets the ingedient information
         {
             quantitiesLst.Reset();
@@ -263,7 +306,7 @@ namespace RecipeAPP
             }
         }
 
-
+        //--------------------------------------------
         public void clearData()  // clears the data 
         {
             recipeNameLst = null;
@@ -274,9 +317,56 @@ namespace RecipeAPP
 
 
         }
+       //                                END OF RECIPE CLASS
+    }  // ---------------------------------------------------------------------------------------
 
 
+    //--------------------------------------------------------------------------------------------
+    //                                     Start of Itemn
+    public class Itemn : INotifyPropertyChanged
+    {
+        private string _stepsDescriptions;    // Declaring variables
+        private bool _isChecked;
 
 
+        //----------------------------------------------
+        // Method of getters and setters
+        public string StepsDescriptions
+        {
+            get { return _stepsDescriptions; }
+            set
+            {
+                if (_stepsDescriptions != value)
+                {
+                    _stepsDescriptions = value;
+                    OnPropertyChanged("StepsDescriptions");
+                }
+            }
+        }
+
+        //------------------------------------------------
+        public bool IsChecked
+        {
+            get { return _isChecked; }
+            set
+            {
+                if (_isChecked != value)
+                {
+                    _isChecked = value;
+                    OnPropertyChanged("IsChecked");
+                }
+            }
+        }
+ 
+        //------------------------------------------------
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        //------------------------------------------------
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
-}
+
+} //-------------------------<<< End Of File >>>----------------------------------------

@@ -23,18 +23,25 @@
             <TabItem Header="Display a recipe" FontWeight="Bold" Height="22" Margin="-2,-2,-2,0" VerticalAlignment="Top">
                 <Grid Background="#FFE5E5E5">
                     <Label Content="Display Recipe" HorizontalAlignment="Center" Height="41" Margin="0,20,0,0" VerticalAlignment="Top" Width="181" FontSize="22" FontFamily="Forte" FontWeight="Bold"/>
-                    <TextBox Name="recipeDisplaytxt" HorizontalAlignment="Left" Height="187" Margin="26,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" TextChanged="TextBox_TextChanged"/>
+                    <TextBox Name="recipeDisplaytxt" HorizontalAlignment="Left" Height="128" Margin="56,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="116" />
                     <Label Content="Choose a recipe to display:" HorizontalAlignment="Left" Height="30" Margin="26,73,0,0" VerticalAlignment="Top" Width="189"/>
-                    <TextBox HorizontalAlignment="Left" Height="22" Margin="215,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35"/>
-                    <Label Content="Steps" HorizontalAlignment="Left" Height="31" Margin="447,77,0,0" VerticalAlignment="Top" Width="66"/>
-                    <TextBox HorizontalAlignment="Left" Height="128" Margin="346,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="316"/>
-                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,116,0,0" VerticalAlignment="Top" Width="17"/>
-                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,137,0,0" VerticalAlignment="Top" Width="17"/>
-                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,158,0,0" VerticalAlignment="Top" Width="17"/>
-                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,179,0,0" VerticalAlignment="Top" Width="17"/>
-                    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="16" Margin="667,202,0,0" VerticalAlignment="Top" Width="17"/>
-                    <Button Content="Show steps" HorizontalAlignment="Left" Height="29" Margin="412,251,0,0" VerticalAlignment="Top" Width="184" Background="#FFB9FF76"/>
-                    <Button Content="Show recipes" HorizontalAlignment="Left" Height="22" Margin="49,51,0,0" VerticalAlignment="Top" Width="130" Click="ShowRecipes_Click" Background="#FFBFF889"/>
+                    <TextBox Name="InputDislayTxt" HorizontalAlignment="Left" Height="22" Margin="195,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="72"/>
+                    <Label Content="Steps" HorizontalAlignment="Left" Height="31" Margin="272,72,0,0" VerticalAlignment="Top" Width="66"/>
+                    <Button Content="Show steps" HorizontalAlignment="Left" Height="29" Margin="323,257,0,0" VerticalAlignment="Top" Width="184" Background="#FFB9FF76" Click="Button_Click"/>
+                    <Button Content="Show recipes" HorizontalAlignment="Left" Height="22" Margin="56,41,0,0" VerticalAlignment="Top" Width="130" Click="ShowRecipes_Click" Background="#FFBFF889"/>
+                    <TextBox Name="DisplayRecipeTextBox" HorizontalAlignment="Left" Height="244" Margin="567,20,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197"/>
+                    <Button Content="Display Recipe" HorizontalAlignment="Left" Height="26" Margin="610,272,0,0" VerticalAlignment="Top" Width="140" Background="#FFB0FF81" Click="DisplayRecipe_Click"/>
+                    <!--<ListBox HorizontalAlignment="Left" Height="125" Margin="272,111,0,0" VerticalAlignment="Top" Width="235" d:ItemsSource="{d:SampleData ItemCount=5}"/> -->
+                    <ListBox Name ="DisplayStepsbx" ItemsSource="{Binding Items}" Margin="254,108,296,158">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding IsChecked}" />
+                                    <TextBlock Text="{Binding StepsDescriptions}" Margin="5,0,0,0" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Filter Recipes" FontWeight="Bold">
@@ -58,8 +65,8 @@
                     </ComboBox>
                     <Label Grid.Column="1" Content="Max Calories" HorizontalAlignment="Left" Height="23" Margin="415,88,0,0" VerticalAlignment="Top" Width="84"/>
                     <TextBox Name="MaxCaloriesFilterTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="516,92,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142"/>
-                    <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="141" Margin="8,157,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="579"/>
                     <Button Grid.Column="1" Content="Filter" HorizontalAlignment="Left" Height="27" Margin="209,125,0,0" VerticalAlignment="Top" Width="178" BorderBrush="#FF04080A" Background="#FF5EC8FF" Click="Filter_Click"/>
+                    <ListBox Name="displayLstbx" Grid.Column="1" HorizontalAlignment="Left" Height="116" Margin="47,180,0,0" VerticalAlignment="Top" Width="526" d:ItemsSource="{d:SampleData ItemCount=5}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Information" FontWeight="Bold">
@@ -81,7 +88,7 @@
             </TabItem>
             <TabItem Header="Exit" FontWeight="Bold">
                 <Grid Background="#FFE5E5E5">
-                    <Label Content="AWWWW SAD TO SEE YOU GO :(" HorizontalAlignment="Center" Height="35" Margin="0,34,0,0" VerticalAlignment="Top" Width="310" Foreground="#FFBA51FF" FontSize="18"/>
+                    <Label Content="AWWWW SAD TO SEE YOU GO :(" HorizontalAlignment="Left" Height="35" Margin="258,34,0,0" VerticalAlignment="Top" Width="310" Foreground="#FFBA51FF" FontSize="18"/>
                     <Button Content="Exit" HorizontalAlignment="Center" Height="31" Margin="0,220,0,0" VerticalAlignment="Top" Width="162" Foreground="Black" BorderBrush="#FF54227C" Background="#FFE8B6F9" Click="Exit_Click"/>
                 </Grid>
 

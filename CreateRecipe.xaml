@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecipeAPP"
         mc:Ignorable="d"
-        Title="Create Recipe" Height="234" Width="464">
+        Title="Create Recipe" Height="270" Width="464">
     <Grid Margin="0,0,-250,2">
         <Label Name="numRecipelbl" Content="Create Recipe" HorizontalAlignment="Left" Height="32" Margin="21,21,0,0" VerticalAlignment="Top" Width="225" FontWeight="Bold" FontSize="16"/>
         <Label Content="Recipe Name:" HorizontalAlignment="Left" Height="29" Margin="21,77,0,0" VerticalAlignment="Top" Width="94"/>
